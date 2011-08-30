@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document>
 	<properties>
-		<title>Plugin</title>
+		<title>Plugin codewizard</title>
 	</properties>
 	<body>
-		<section name="Plugin">
+		<section name="Plugin codewizard">
 			<subsection name="Introduction">
+			Génére quelques fichiers Xml et Java utilisés dans Lutece. Utiliser plugin-pluginwizard
+			pour générer un plugin Lutece complet.
 			</subsection>
 		</section>
 	</body>
