@@ -2,7 +2,7 @@
 #Plugin codewizard
 
 ##Introduction
-Generate a couple of typical xml and java files that are commonly used in Lutece. Prefer plugin-pluginwizard for more advance code generation.
+Generate a couple of typical Java files that are commonly used in Lutece. Prefer plugin-pluginwizard for more advanced code generation.
 
 [Maven documentation and reports](http://dev.lutece.paris.fr/plugins/plugin-codewizard/)
 

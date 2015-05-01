@@ -6,8 +6,8 @@
 	<body>
 		<section name="Plugin codewizard">
 			<subsection name="Introduction">
-				Generate a couple of typical xml and java files that are commonly used in Lutece.
-				Prefer plugin-pluginwizard for more advance code generation.
+				Generate a couple of typical Java files that are commonly used in Lutece.
+				Prefer plugin-pluginwizard for more advanced code generation.
 			</subsection>
 		</section>
 	</body>
