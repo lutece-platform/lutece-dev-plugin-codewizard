@@ -1,37 +1,38 @@
 <div class="container">
   <div class="row">
-    <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-lg-offset-2 col-lg-10">
+    <div class="col-xs-12 col-lg-12">
       <h2>#i18n{codewizard.code_wizard.pageTitle}</h2>
+      <hr>
       <form class="form-horizontal" method="post" name="generate" >
         <input type="hidden" name="page" value="codewizard">
         <input type="hidden" name="action" value="generate">
         <div class="form-group">
           <label class="control-label col-md-3" for="package">#i18n{codewizard.code_wizard.package} :</label>
-          <div class="col-md-9">
+          <div class="col-md-8">
             <input type="text" name="package" value="fr.paris.lutece.plugins." class="form-control">
           </div>
         </div>
         <div class="form-group">
           <label class="control-label col-md-3" for="class">#i18n{codewizard.code_wizard.business_class} :</label>
-          <div class="col-md-9">
+          <div class="col-md-8">
             <input type="text" name="class" value="Object" class="form-control">
           </div>
         </div>
         <div class="form-group">
           <label class="control-label col-md-3"  for="table">#i18n{codewizard.code_wizard.table} :</label>
-          <div class="col-md-9">
+          <div class="col-md-8">
               <input type="text" name="table" value="object" class="form-control">
           </div>
         </div>
-        <div class="control-group">
+        <div class="form-group">
           <label class="control-label  col-md-3" for="plugin">#i18n{codewizard.code_wizard.plugin} :</label>
-          <div class="col-md-9">
+          <div class="col-md-8">
             <input type="text" name="plugin" value="object" class="form-control">
           </div>
         </div>
-        <div class="control-group">
+        <div class="form-group">
           <label class="control-label  col-md-3" for="attributes">#i18n{codewizard.code_wizard.attributes} :</label>
-          <div class="col-md-9">
+          <div class="col-md-8">
             <textarea name="attributes" rows="8" class="form-control">
 id_object int
 name String
@@ -40,14 +41,14 @@ description String
           </div>
         </div>
         <div class="form-group">
-          <label class="control-label" for="generation_type">#i18n{codewizard.code_wizard.generation} :</label>
-          <div class="controls">
-              <@comboWithParams name="generation_type" default_value="1" items=combo_generators/>
+          <label class="control-label col-md-3" for="generation_type">#i18n{codewizard.code_wizard.generation} :</label>
+          <div class="col-md-8">
+              <@comboSiteWithParams name="generation_type" default_value="1" additionalParameters="class=\"form-control\"" items=combo_generators/>
           </div>
         </div>
         <div class="col-md-offset-3 col-md-9">
             <button type="submit" name="submit" value="#i18n{codewizard.code_wizard.generate_button}" class="btn btn-primary">
-              #i18n{codewizard.code_wizard.generate_button}
+              <i class="fa fa-cogs"></i> #i18n{codewizard.code_wizard.generate_button}
             </button>
         </div>
       </form>
