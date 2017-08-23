@@ -1,0 +1,160 @@
+/*
+ * Copyright (c) 2002-${.now?string('yyyy')}, Mairie de Paris
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ *  1. Redistributions of source code must retain the above copyright notice
+ *     and the following disclaimer.
+ *
+ *  2. Redistributions in binary form must reproduce the above copyright notice
+ *     and the following disclaimer in the documentation and/or other materials
+ *     provided with the distribution.
+ *
+ *  3. Neither the name of 'Mairie de Paris' nor 'Lutece' nor the names of its
+ *     contributors may be used to endorse or promote products derived from
+ *     this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDERS OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ *
+ * License 1.0
+ */
+
+package ${businessObject.packageName};
+
+import fr.paris.lutece.portal.service.plugin.Plugin;
+import fr.paris.lutece.util.sql.DAOUtil;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.sql.Statement;
+
+/**
+ * This class provides Data Access methods for ${businessObject.className} objects
+ */
+public final class ${businessObject.className}DAO implements I${businessObject.className}DAO
+{
+	// Constants
+	private static final String SQL_QUERY_SELECT = "SELECT <#list businessObject.attributes as attribute>${attribute.columnName}<#if attribute_has_next>, </#if></#list> FROM ${businessObject.table} WHERE ${businessObject.idColumnName} = ?";
+	private static final String SQL_QUERY_INSERT = "INSERT INTO ${businessObject.table} ( <#list businessObject.attributes as attribute>${attribute.columnName}<#if attribute_has_next>, </#if></#list> ) VALUES ( <#list businessObject.attributes as attribute>?<#if attribute_has_next>, </#if></#list> ) ";
+	private static final String SQL_QUERY_DELETE = "DELETE FROM ${businessObject.table} WHERE ${businessObject.idColumnName} = ? ";
+	private static final String SQL_QUERY_UPDATE = "UPDATE ${businessObject.table} SET <#list businessObject.attributes as attribute>${attribute.columnName} = ?<#if attribute_has_next>, </#if></#list> WHERE ${businessObject.idColumnName} = ?";
+	private static final String SQL_QUERY_SELECTALL = "SELECT <#list businessObject.attributes as attribute>${attribute.columnName}<#if attribute_has_next>, </#if></#list> FROM ${businessObject.table}";
+
+        
+        /**
+         * {@inheritDoc }
+         */
+        @Override
+	public void insert( ${businessObject.className} ${businessObject.instanceName}, Plugin plugin )
+	{
+		DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT , Statement.RETURN_GENERATED_KEYS, plugin );
+                
+                int nIndex = 0;
+            <#list businessObject.attributes as attribute>
+                daoUtil.set${attribute.type?cap_first} ( ++nIndex, ${businessObject.instanceName}.get${attribute.name} ( ) );
+            </#list>
+
+                daoUtil.executeUpdate();
+                if ( daoUtil.nextGeneratedKey() ) 
+                {
+                    ${businessObject.instanceName}.setId${businessObject.className}( daoUtil.getGeneratedKeyInt( 1 ) );
+                }
+                daoUtil.free( );  
+        }
+
+        
+        /**
+         * {@inheritDoc }
+         */
+        @Override
+        public ${businessObject.className} load( int nId, Plugin plugin )
+	{
+		DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT , plugin );
+		daoUtil.setInt( 1 , nId );
+		daoUtil.executeQuery();
+
+		${businessObject.className} ${businessObject.instanceName} = null;
+
+		if ( daoUtil.next() )
+		{
+			${businessObject.instanceName} = new ${businessObject.className}();
+
+                    <#list businessObject.attributes as attribute>
+                        ${businessObject.instanceName}.set${attribute.name}( daoUtil.get${attribute.type?cap_first}( "${attribute.columnName}" ) );
+                    </#list>
+		}
+
+		daoUtil.free();
+		return ${businessObject.instanceName};
+	}
+
+        
+        /**
+         * {@inheritDoc }
+         */
+        @Override
+	public void delete( int n${businessObject.className}Id, Plugin plugin )
+	{
+		DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE , plugin );
+		daoUtil.setInt( 1 , n${businessObject.className}Id );
+		daoUtil.executeUpdate();
+		daoUtil.free();
+	}
+
+        
+        /**
+         * {@inheritDoc }
+         */
+        @Override
+	public void store( ${businessObject.className} ${businessObject.instanceName}, Plugin plugin )
+	{
+		DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE , plugin );
+                
+                int nIndex = 0;
+                <#list businessObject.attributes as attribute>
+                daoUtil.set${attribute.type?cap_first}( ++nIndex, ${businessObject.instanceName}.get${attribute.name}( ) );
+                </#list>
+                daoUtil.setInt( ++nIndex, ${businessObject.instanceName}.getId${businessObject.className}( ) );
+                
+		daoUtil.executeUpdate( );
+		daoUtil.free( );
+	}
+
+        
+        /**
+         * {@inheritDoc }
+         */
+        @Override
+        public List&lt;${businessObject.className}&gt; select${businessObject.className}sList( Plugin plugin )
+	{
+		List&lt;${businessObject.className}&gt; list${businessObject.className}s = new ArrayList&lt;&gt;(  );
+		DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL , plugin );
+		daoUtil.executeQuery(  );
+
+		while ( daoUtil.next(  ) )
+		{
+                    ${businessObject.className} ${businessObject.instanceName} = new ${businessObject.className}(  );
+                <#list businessObject.attributes as attribute>
+                    ${businessObject.instanceName}.set${attribute.name}( daoUtil.get${attribute.type?cap_first}( "${attribute.columnName}" ) );
+                </#list>
+                    list${businessObject.className}s.add( ${businessObject.instanceName} );
+		}
+
+		daoUtil.free();
+		return list${businessObject.className}s;
+	}
+
+}
