@@ -35,7 +35,7 @@ package fr.paris.lutece.plugins.codewizard.web;
 
 import fr.paris.lutece.plugins.codewizard.business.BusinessObject;
 import fr.paris.lutece.plugins.codewizard.business.ObjectAttribute;
-import fr.paris.lutece.plugins.codewizard.service.Generator;
+import fr.paris.lutece.plugins.codewizard.service.GeneratorService;
 import fr.paris.lutece.portal.service.i18n.I18nService;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
@@ -67,7 +67,6 @@ public class CodeWizardApp implements XPageApplication
     private static final String PARAM_GENERATION_TYPE = "generation_type";
     private static final String PARAM_ATTRIBUTES = "attributes";
     private static final String ACTION_GENERATE = "generate";
-    private static final String PROPERTY_GENERATOR = "codewizard.generator";
     private static final String PROPERTY_PAGE_TITLE = "codewizard.pageTitle";
     private static final String PROPERTY_PAGE_PATH_LABEL = "codewizard.pagePathLabel";
 
@@ -79,6 +78,7 @@ public class CodeWizardApp implements XPageApplication
      * @param plugin Plugin
      * @return XPage
      */
+    @Override
     public XPage getPage( HttpServletRequest request, int nMode, Plugin plugin )
     {
         XPage page = new XPage(  );
@@ -86,7 +86,7 @@ public class CodeWizardApp implements XPageApplication
         page.setTitle( I18nService.getLocalizedString( PROPERTY_PAGE_TITLE, request.getLocale(  ) ) );
         page.setPathLabel( I18nService.getLocalizedString( PROPERTY_PAGE_PATH_LABEL, request.getLocale(  ) ) );
 
-        String strContent = null;
+        String strContent;
         String strAction = request.getParameter( PARAM_ACTION );
 
         if ( ( strAction != null ) && ( strAction.equals( ACTION_GENERATE ) ) )
@@ -111,7 +111,7 @@ public class CodeWizardApp implements XPageApplication
     private String getCodeWizardPage( HttpServletRequest request )
     {
         HashMap model = new HashMap(  );
-        model.put( MARK_COMBO_GENERATORS, getGeneratorsList(  ) );
+        model.put( MARK_COMBO_GENERATORS, GeneratorService.getGeneratorsList(  ) );
 
         HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_CODE_WIZARD, request.getLocale(  ), model );
 
@@ -143,9 +143,7 @@ public class CodeWizardApp implements XPageApplication
         if ( strGenerationType != null )
         {
             int nIndex = Integer.parseInt( strGenerationType );
-            Generator generator = new Generator(  );
-            generator.setTemplate( getTemplate( nIndex ) );
-            strPage = generator.generate( request, bo );
+            strPage = GeneratorService.generate( bo, nIndex );
         }
 
         return strPage;
@@ -184,35 +182,5 @@ public class CodeWizardApp implements XPageApplication
         }
     }
 
-    /**
-     * Return the list of generators
-     *
-     * @return the list of generators
-     */
-    private ReferenceList getGeneratorsList(  )
-    {
-        ReferenceList listGenerators = new ReferenceList(  );
-        String strGeneratorText;
-        int i = 1;
 
-        while ( ( strGeneratorText = AppPropertiesService.getProperty( PROPERTY_GENERATOR + i + ".text" ) ) != null )
-        {
-            listGenerators.addItem( i, strGeneratorText );
-            i++;
-        }
-
-        return listGenerators;
-    }
-
-    /**
-     * Return template of generation
-     * @param nIndex the index
-     * @return the template
-     */
-    private String getTemplate( int nIndex )
-    {
-        String strTemplate = AppPropertiesService.getProperty( PROPERTY_GENERATOR + nIndex + ".template" );
-
-        return strTemplate;
-    }
 }

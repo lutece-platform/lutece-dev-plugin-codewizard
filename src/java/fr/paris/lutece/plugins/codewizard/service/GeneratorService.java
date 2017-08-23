@@ -35,39 +35,76 @@ package fr.paris.lutece.plugins.codewizard.service;
 
 import fr.paris.lutece.plugins.codewizard.business.BusinessObject;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
+import fr.paris.lutece.portal.service.util.AppPropertiesService;
+import fr.paris.lutece.portal.web.l10n.LocaleService;
+import fr.paris.lutece.util.ReferenceList;
 import fr.paris.lutece.util.html.HtmlTemplate;
 
 import java.util.HashMap;
 
-import javax.servlet.http.HttpServletRequest;
 
 
 /**
  * This class generatot class
  */
-public class Generator
+public class GeneratorService
 {
     //Constants
+    private static final String PROPERTY_GENERATOR = "codewizard.generator";
     private static final String MARK_OBJECT_BO = "businessObject";
-    private String _strTemplate;
 
-    public String generate( HttpServletRequest request, BusinessObject bo )
+    /** private constructor */
+    private GeneratorService()
     {
+    }
+
+    /**
+     * Generate code
+     * @param bo The business object
+     * @param nIndex The template index
+     * @return The source code
+     */
+    public static String generate( BusinessObject bo, int nIndex )
+    {
+        String strTemplate = getTemplate( nIndex );
         HashMap model = new HashMap(  );
         model.put( MARK_OBJECT_BO, bo );
 
-        HtmlTemplate template = AppTemplateService.getTemplate( getTemplate(  ), request.getLocale(  ), model );
+        HtmlTemplate template = AppTemplateService.getTemplate( strTemplate, LocaleService.getDefault(), model );
 
         return template.getHtml(  );
     }
-
-    public void setTemplate( String strTemplate )
+    
+    /**
+     * Return the list of generators
+     *
+     * @return the list of generators
+     */
+    public static ReferenceList getGeneratorsList(  )
     {
-        _strTemplate = strTemplate;
+        ReferenceList listGenerators = new ReferenceList(  );
+        String strGeneratorText;
+        int i = 1;
+
+        while ( ( strGeneratorText = AppPropertiesService.getProperty( PROPERTY_GENERATOR + i + ".text" ) ) != null )
+        {
+            listGenerators.addItem( i, strGeneratorText );
+            i++;
+        }
+
+        return listGenerators;
     }
 
-    public String getTemplate(  )
+    /**
+     * Return template of generation
+     * @param nIndex the index
+     * @return the template
+     */
+    private static String getTemplate( int nIndex )
     {
-        return _strTemplate;
-    }
+        String strTemplate = AppPropertiesService.getProperty( PROPERTY_GENERATOR + nIndex + ".template" );
+
+        return strTemplate;
+    }    
+
 }
