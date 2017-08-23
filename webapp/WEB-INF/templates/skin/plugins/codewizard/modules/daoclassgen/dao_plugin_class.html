@@ -1,9 +1,3 @@
-<div class="row">
-	<div class="container">
-		<div class="panel panel-default">
-			<div class="panel-body">
-				<pre>
-<font class="comment">
 /*
  * Copyright (c) 2002-${.now?string('yyyy')}, Mairie de Paris
  * All rights reserved.
@@ -38,69 +32,53 @@
  * License 1.0
  */
 
-</font>
-<font class="keyword">package</font> ${businessObject.packageName};
+package ${businessObject.packageName};
 
-<font class="keyword">import</font> fr.paris.lutece.portal.service.plugin.Plugin;
-<font class="keyword">import</font> fr.paris.lutece.util.sql.DAOUtil;
+import fr.paris.lutece.portal.service.plugin.Plugin;
+import fr.paris.lutece.util.sql.DAOUtil;
 
-<font class="keyword">import</font> java.util.ArrayList;
-<font class="keyword">import</font> java.util.List;
+import java.util.ArrayList;
+import java.util.List;
 
-<font class="comment">
+
 /**
  * This class provides Data Access methods for ${businessObject.className} objects
  */
-</font>
-<font class="keyword">public final class </font>${businessObject.className}DAO implements I${businessObject.className}DAO
+
+public final class ${businessObject.className}DAO implements I${businessObject.className}DAO
 {
-	<font class="comment">
+	
 	// Constants
-	</font>
-	<font class="modify">private static final</font> String SQL_QUERY_NEW_PK = "SELECT max( ${businessObject.idColumnName} ) FROM ${businessObject.table}";
-	<font class="modify">private static final</font> String SQL_QUERY_SELECT = "SELECT <#list businessObject.attributes as attribute>${attribute.columnName}<#if attribute_has_next>, </#if></#list> FROM ${businessObject.table} WHERE ${businessObject.idColumnName} = ?";
-	<font class="modify">private static final</font> String SQL_QUERY_INSERT = "INSERT INTO ${businessObject.table} ( <#list businessObject.attributes as attribute>${attribute.columnName}<#if attribute_has_next>, </#if></#list> ) VALUES ( <#list businessObject.attributes as attribute>?<#if attribute_has_next>, </#if></#list> ) ";
-	<font class="modify">private static final</font> String SQL_QUERY_DELETE = "DELETE FROM ${businessObject.table} WHERE ${businessObject.idColumnName} = ? ";
-	<font class="modify">private static final</font> String SQL_QUERY_UPDATE = "UPDATE ${businessObject.table} SET <#list businessObject.attributes as attribute>${attribute.columnName} = ?<#if attribute_has_next>, </#if></#list> WHERE ${businessObject.idColumnName} = ?";
-	<font class="modify">private static final</font> String SQL_QUERY_SELECTALL = "SELECT <#list businessObject.attributes as attribute>${attribute.columnName}<#if attribute_has_next>, </#if></#list> FROM ${businessObject.table}";
+	
+	private static final String SQL_QUERY_NEW_PK = "SELECT max( ${businessObject.idColumnName} ) FROM ${businessObject.table}";
+	private static final String SQL_QUERY_SELECT = "SELECT <#list businessObject.attributes as attribute>${attribute.columnName}<#if attribute_has_next>, </#if></#list> FROM ${businessObject.table} WHERE ${businessObject.idColumnName} = ?";
+	private static final String SQL_QUERY_INSERT = "INSERT INTO ${businessObject.table} ( <#list businessObject.attributes as attribute>${attribute.columnName}<#if attribute_has_next>, </#if></#list> ) VALUES ( <#list businessObject.attributes as attribute>?<#if attribute_has_next>, </#if></#list> ) ";
+	private static final String SQL_QUERY_DELETE = "DELETE FROM ${businessObject.table} WHERE ${businessObject.idColumnName} = ? ";
+	private static final String SQL_QUERY_UPDATE = "UPDATE ${businessObject.table} SET <#list businessObject.attributes as attribute>${attribute.columnName} = ?<#if attribute_has_next>, </#if></#list> WHERE ${businessObject.idColumnName} = ?";
+	private static final String SQL_QUERY_SELECTALL = "SELECT <#list businessObject.attributes as attribute>${attribute.columnName}<#if attribute_has_next>, </#if></#list> FROM ${businessObject.table}";
 
-
-	<font class="comment">
+	
 	/**
 	 * Generates a new primary key
          * @param plugin The Plugin
 	 * @return The new primary key
 	 */
-    </font>
-	<font class="modify">public</font> int newPrimaryKey( Plugin plugin)
+	public int newPrimaryKey( Plugin plugin)
 	{
-		DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_PK , plugin  );
+		DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_PK  );
 		daoUtil.executeQuery();
 
-		int nKey;
-
-		<font class="keyword">if</font>( !daoUtil.next() )
-		{
-			// if the table is empty
-			nKey = 1;
-		}
-
-		nKey = daoUtil.getInt( 1 ) + 1;
+		int nKey =( daoUtil.next() ) ? daoUtil.getInt( 1 ) + 1 : 1;
 		daoUtil.free();
 
-		<font class="keyword">return</font> nKey;
+		return nKey;
 	}
 
-
-<font class="comment">
-
-	/**
-	 * Insert a new record in the table.
-	 * @param ${businessObject.instanceName} instance of the ${businessObject.className} object to insert
-         * @param plugin The plugin
-	 */
-</font>
-	<font class="keyword">public void</font> insert( ${businessObject.className} ${businessObject.instanceName}, Plugin plugin )
+        /**
+         * {@inheritDoc }
+         */
+        @Override
+	public void insert( ${businessObject.className} ${businessObject.instanceName}, Plugin plugin )
 	{
 		DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT , plugin );
                 
@@ -114,44 +92,37 @@
 		daoUtil.free();
 	}
 
-<font class="comment">
-	/**
-	 * Load the data of the ${businessObject.instanceName} from the table
-	 * @param nId The identifier of the ${businessObject.instanceName}
-         * @param plugin The plugin
-	 * @return the instance of the ${businessObject.className}
-	 */
-</font>
-
-        <font class="keyword">public</font> ${businessObject.className} load( int nId, Plugin plugin )
+        /**
+         * {@inheritDoc }
+         */
+        @Override
+        public ${businessObject.className} load( int nId, Plugin plugin )
 	{
 		DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT , plugin );
 		daoUtil.setInt( 1 , nId );
 		daoUtil.executeQuery();
 
-		${businessObject.className} ${businessObject.instanceName} = <font class="keyword">null</font>;
+		${businessObject.className} ${businessObject.instanceName} = null;
 
-		<font class="keyword">if</font> ( daoUtil.next() )
+		if ( daoUtil.next() )
 		{
 			${businessObject.instanceName} = new ${businessObject.className}();
-
+                        int nIndex = 0;
                     <#list businessObject.attributes as attribute>
-                        ${businessObject.instanceName}.set${attribute.name}( daoUtil.get${attribute.type?cap_first}(  ${attribute_index + 1} ) );
+                        ${businessObject.instanceName}.set${attribute.name}( daoUtil.get${attribute.type?cap_first}( ++nIndex ) );
                     </#list>
 		}
 
 		daoUtil.free();
-		<font class="keyword">return</font> ${businessObject.instanceName};
+                
+		return ${businessObject.instanceName};
 	}
 
-<font class="comment">
-	/**
-	 * Delete a record from the table
-         * @param n${businessObject.className}Id The identifier of the ${businessObject.instanceName}
-         * @param plugin The plugin
-	 */
-</font>
-	<font class="keyword">public void</font> delete( int n${businessObject.className}Id, Plugin plugin )
+        /**
+         * {@inheritDoc }
+         */
+        @Override
+	public void delete( int n${businessObject.className}Id, Plugin plugin )
 	{
 		DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE , plugin );
 		daoUtil.setInt( 1 , n${businessObject.className}Id );
@@ -159,42 +130,35 @@
 		daoUtil.free();
 	}
 
-<font class="comment">
-	/**
-	 * Update the record in the table
-	 * @param ${businessObject.instanceName} The reference of the ${businessObject.instanceName}
-         * @param plugin The plugin
-	 */
-</font>
-	<font class="keyword">public void</font> store( ${businessObject.className} ${businessObject.instanceName}, Plugin plugin )
+        /**
+         * {@inheritDoc }
+         */
+        @Override
+	public void store( ${businessObject.className} ${businessObject.instanceName}, Plugin plugin )
 	{
 		DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE , plugin );
                 
+                int nIndex = 0;
         <#list businessObject.attributes as attribute>
-        <#assign nIndex=attribute_index+1 >
-        daoUtil.set${attribute.type?cap_first}( ${nIndex}, ${businessObject.instanceName}.get${attribute.name}( ) );
+                daoUtil.set${attribute.type?cap_first}( ++nIndex , ${businessObject.instanceName}.get${attribute.name}( ) );
         </#list>
-        daoUtil.setInt( ${nIndex+1}, ${businessObject.instanceName}.getId( ) );
+                daoUtil.setInt( ++nIndex , ${businessObject.instanceName}.getId( ) );
                 
 		daoUtil.executeUpdate( );
 		daoUtil.free( );
 	}
 
-
-<font class="comment">
-	/**
-	 * Load the data of all the ${businessObject.instanceName}s and returns them as a List
-         * @param plugin The plugin
-	 * @return The List which contains the data of all the ${businessObject.instanceName}s
-	 */
-</font>
-        <font class="keyword">public List&lt;${businessObject.className}&gt;</font> select${businessObject.className}sList( Plugin plugin )
+        /**
+         * {@inheritDoc }
+         */
+        @Override
+        public List&lt;${businessObject.className}&gt; select${businessObject.className}sList( Plugin plugin )
 	{
-		List&lt;${businessObject.className}&gt; ${businessObject.instanceName}List = new ArrayList&lt;${businessObject.className}&gt;(  );
+		List&lt;${businessObject.className}&gt; list${businessObject.instanceName}s = new ArrayList&lt;&gt;(  );
 		DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL , plugin );
 		daoUtil.executeQuery(  );
 
-		<font class="keyword">while</font> ( daoUtil.next(  ) )
+		while ( daoUtil.next(  ) )
 		{
                 ${businessObject.className} ${businessObject.instanceName} = new ${businessObject.className}(  );
 
@@ -202,16 +166,12 @@
                     ${businessObject.instanceName}.set${attribute.name}( daoUtil.get${attribute.type?cap_first}( ${attribute_index+1} ) );
                 </#list>
 
-                ${businessObject.instanceName}List.add( ${businessObject.instanceName} );
+                list${businessObject.instanceName}s.add( ${businessObject.instanceName} );
 		}
 
 		daoUtil.free();
-		<font class="keyword">return</font> ${businessObject.instanceName}List;
+                
+		return list${businessObject.instanceName}s;
 	}
 
 }
-				</pre>
-			</div>
-		</div>
-	</div>
-</div>

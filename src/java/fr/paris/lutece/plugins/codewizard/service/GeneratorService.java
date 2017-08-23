@@ -45,7 +45,7 @@ import java.util.HashMap;
 /**
  * This class generatot class
  */
-public class GeneratorService
+public final class GeneratorService
 {
     // Constants
     private static final String PROPERTY_GENERATOR = "codewizard.generator";

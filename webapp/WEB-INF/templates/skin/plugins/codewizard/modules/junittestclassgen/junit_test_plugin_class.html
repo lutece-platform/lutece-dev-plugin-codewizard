@@ -1,9 +1,3 @@
-<div class="row">
-	<div class="container">
-		<div class="panel panel-default">
-			<div class="panel-body">
-				<pre>
-					<font class="comment">
 /*
  * Copyright (c) 2002-${.now?string('yyyy')}, Mairie de Paris
  * All rights reserved.
@@ -37,45 +31,45 @@
  *
  * License 1.0
  */
-</font>
-<font class="keyword">package</font> ${businessObject.packageName};
 
-<font class="keyword">import</font> fr.paris.lutece.test.LuteceTestCase;
-<font class="keyword">import</font> fr.paris.lutece.plugins.${businessObject.pluginName}.business.${businessObject.className};
-<font class="keyword">import</font> fr.paris.lutece.plugins.${businessObject.pluginName}.business.${businessObject.className}Home;
-<font class="keyword">import</font> fr.paris.lutece.portal.service.plugin.PluginService;
-<font class="keyword">import</font> fr.paris.lutece.portal.service.plugin.Plugin;
+package ${businessObject.packageName};
 
-<font class="modify">public class</font> ${businessObject.className}BusinessTest <font class="keyword">extends</font> LuteceTestCase
+import fr.paris.lutece.test.LuteceTestCase;
+import fr.paris.lutece.plugins.${businessObject.pluginName}.business.${businessObject.className};
+import fr.paris.lutece.plugins.${businessObject.pluginName}.business.${businessObject.className}Home;
+import fr.paris.lutece.portal.service.plugin.PluginService;
+import fr.paris.lutece.portal.service.plugin.Plugin;
+
+public class ${businessObject.className}BusinessTest extends LuteceTestCase
 {
 <#list businessObject.attributes as attribute>
 <#if attribute.type = "String"> 
-    <font class="modify">private final static</font> ${attribute.type} ${attribute.name?upper_case}1 = "${attribute.name}1";
-    <font class="modify">private final static</font> ${attribute.type} ${attribute.name?upper_case}2 = "${attribute.name}2";
+    private final static ${attribute.type} ${attribute.name?upper_case}1 = "${attribute.name}1";
+    private final static ${attribute.type} ${attribute.name?upper_case}2 = "${attribute.name}2";
 <#else>
-    <font class="modify">private final static</font> ${attribute.type} ${attribute.name?upper_case}1 = 1;
-    <font class="modify">private final static</font> ${attribute.type} ${attribute.name?upper_case}2 = 2;
+    private final static ${attribute.type} ${attribute.name?upper_case}1 = 1;
+    private final static ${attribute.type} ${attribute.name?upper_case}2 = 2;
 </#if>
 </#list>
 
-    <font class="modify">public void</font> testBusiness(  )
+    public void testBusiness(  )
     {
         Plugin plugin = PluginService.getPlugin( "${businessObject.pluginName}" );
         
-        <font class="comment">// Initialize an object</font>
+        // Initialize an object
         ${businessObject.className} ${businessObject.instanceName} = new ${businessObject.className}();
         <#list businessObject.attributes as attribute>
         ${businessObject.instanceName}.set${attribute.name}( ${attribute.name?upper_case}1 );
         </#list>
 
-        <font class="comment">// Create test</font>
+        // Create test
         ${businessObject.className}Home.create( ${businessObject.instanceName} , plugin );
         ${businessObject.className} ${businessObject.instanceName}Stored = ${businessObject.className}Home.findByPrimaryKey( ${businessObject.instanceName}.getId() , plugin );
         <#list businessObject.attributes as attribute>
         assertEquals( ${businessObject.instanceName}Stored.get${attribute.name}() , ${businessObject.instanceName}.get${attribute.name}() );
         </#list>
 
-        <font class="comment">// Update test</font>
+        // Update test
         <#list businessObject.attributes as attribute>
         ${businessObject.instanceName}.set${attribute.name}( ${attribute.name?upper_case}2 );
         </#list>
@@ -85,10 +79,10 @@
         assertEquals( ${businessObject.instanceName}Stored.get${attribute.name}() , ${businessObject.instanceName}.get${attribute.name}() );
         </#list>
 
-        <font class="comment">// List test</font>
+        // List test
         ${businessObject.className}Home.get${businessObject.className}sList( plugin );
 
-        <font class="comment">// Delete test</font>
+        // Delete test
         ${businessObject.className}Home.remove( ${businessObject.instanceName}.getId() , plugin );
         ${businessObject.instanceName}Stored = ${businessObject.className}Home.findByPrimaryKey( ${businessObject.instanceName}.getId() , plugin );
         assertNull( ${businessObject.instanceName}Stored );
@@ -96,8 +90,3 @@
     }
 
 }
-				</pre>
-			</div>
-		</div>
-	</div>
-</div>

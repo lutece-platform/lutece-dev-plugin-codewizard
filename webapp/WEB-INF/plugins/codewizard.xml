@@ -10,18 +10,22 @@
     <provider>childpages.plugin.provider</provider>
     <provider-url>http://lutece.paris.fr</provider-url>
     <icon-url>images/admin/skin/plugins/codewizard/codewizard.png</icon-url>
-    <copyright>Copyright 2001-2013 Mairie de Paris</copyright>
+    <copyright>Copyright 2001-2017 Mairie de Paris</copyright>
     <core-version-dependency>
         <min-core-version>4.0.0</min-core-version>
         <max-core-version/>
     </core-version-dependency>
     <db-pool-required>0</db-pool-required>
 
-    <!-- Specific plugin CSS stylesheets -->
-    <css-stylesheets>
-        <css-stylesheets-scope>xpage</css-stylesheets-scope>
-        <css-stylesheet>codewizard/codewizard.css</css-stylesheet>
-    </css-stylesheets>
+    <javascript-files>
+        <javascript-files-scope>xpage</javascript-files-scope>
+        <javascript-file>codewizard/jquery.metadata.js</javascript-file>
+        <javascript-file>codewizard/jquery.tablesorter.js</javascript-file>
+        <javascript-file>codewizard/Chart.js</javascript-file>
+        <javascript-file>codewizard/custom.js</javascript-file>
+        <javascript-file>codewizard/jquery-ui.js</javascript-file>
+        <javascript-file>codewizard/prettify/run_prettify.js?skin=desert</javascript-file>
+    </javascript-files>
 
     <!-- Applications -->
     <applications>

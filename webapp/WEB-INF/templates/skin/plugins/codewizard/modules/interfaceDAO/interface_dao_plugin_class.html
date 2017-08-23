@@ -1,9 +1,3 @@
-<div class="row">
-	<div class="container">
-		<div class="panel panel-default">
-			<div class="panel-body">
-				<pre>
-					<font class="comment">
 /*
  * Copyright (c) 2002-${.now?string('yyyy')}, Mairie de Paris
  * All rights reserved.
@@ -37,49 +31,49 @@
  *
  * License 1.0
  */
- </font>
-<font class="keyword">package</font> ${businessObject.packageName};
+ 
+package ${businessObject.packageName};
 
-<font class="keyword">import</font> fr.paris.lutece.portal.service.plugin.Plugin;
-<font class="keyword">import</font> java.util.List;
+import fr.paris.lutece.portal.service.plugin.Plugin;
+import java.util.List;
 
 
-<font class="comment">
+
  /**
  * I${businessObject.className}DAO Interface
  */
-</font>
-<font class="modify">public interface </font>I${businessObject.className}DAO
+
+public interface I${businessObject.className}DAO
 {
 
-<font class="comment">
+
     /**
      * Insert a new record in the table.
      * @param ${businessObject.instanceName} instance of the ${businessObject.className} object to inssert
      * @param plugin the Plugin
      */
-</font>
-    <font class="modify">void</font> insert( ${businessObject.className} ${businessObject.instanceName}, Plugin plugin );
+
+    void insert( ${businessObject.className} ${businessObject.instanceName}, Plugin plugin );
 
 
-<font class="comment">
+
      /**
      * Update the record in the table
      * @param ${businessObject.instanceName} the reference of the ${businessObject.className}
      * @param plugin the Plugin
      */
-</font>
-    <font class="modify">void</font> store( ${businessObject.className} ${businessObject.instanceName}, Plugin plugin );
 
-<font class="comment">
+    void store( ${businessObject.className} ${businessObject.instanceName}, Plugin plugin );
+
+
     /**
      * Delete a record from the table
      * @param nId${businessObject.className} int identifier of the ${businessObject.className} to delete
      * @param plugin the Plugin
      */
-</font>
-    <font class="modify">void</font> delete( int nId${businessObject.className}, Plugin plugin );
-<font class="comment">
+
+    void delete( int nId${businessObject.className}, Plugin plugin );
+
     ///////////////////////////////////////////////////////////////////////////
     // Finders
 
@@ -89,22 +83,17 @@
      * @param plugin the Plugin
      * @return The instance of the ${businessObject.instanceName}
      */
-</font>
-    <font class="modify">${businessObject.className}</font> load( int nKey, Plugin plugin );
+
+    ${businessObject.className} load( int nKey, Plugin plugin );
 
 
-<font class="comment">
+
      /**
      * Load the data of all the ${businessObject.instanceName} objects and returns them as a List
      * @param plugin the Plugin
      * @return The List which contains the data of all the ${businessObject.instanceName} objects
      */
-</font>
-    <font class="modify">List&lt;${businessObject.className}&gt;</font> select${businessObject.className}sList( Plugin plugin );
+
+    List&lt;${businessObject.className}&gt; select${businessObject.className}sList( Plugin plugin );
     
 }
-				</pre>
-			</div>
-		</div>
-	</div>
-</div>

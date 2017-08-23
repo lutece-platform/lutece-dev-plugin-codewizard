@@ -39,13 +39,12 @@ import fr.paris.lutece.plugins.codewizard.service.GeneratorService;
 import fr.paris.lutece.portal.service.i18n.I18nService;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
-import fr.paris.lutece.portal.service.util.AppPropertiesService;
 import fr.paris.lutece.portal.web.xpages.XPage;
 import fr.paris.lutece.portal.web.xpages.XPageApplication;
-import fr.paris.lutece.util.ReferenceList;
 import fr.paris.lutece.util.html.HtmlTemplate;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
@@ -56,8 +55,12 @@ import javax.servlet.http.HttpServletRequest;
 public class CodeWizardApp implements XPageApplication
 {
     // Constants
-    private static final String MARK_COMBO_GENERATORS = "combo_generators";
     private static final String TEMPLATE_CODE_WIZARD = "/skin/plugins/codewizard/code_wizard.html";
+    private static final String TEMPLATE_SOURCE_CODE = "/skin/plugins/codewizard/code_source.html";
+
+    private static final String MARK_COMBO_GENERATORS = "combo_generators";
+    private static final String MARK_SOURCE_CODE = "source_code";
+    
     private static final String PARAM_ACTION = "action";
     private static final String PARAM_CLASSNAME = "class";
     private static final String PARAM_PACKAGE = "package";
@@ -65,7 +68,9 @@ public class CodeWizardApp implements XPageApplication
     private static final String PARAM_PLUGIN = "plugin";
     private static final String PARAM_GENERATION_TYPE = "generation_type";
     private static final String PARAM_ATTRIBUTES = "attributes";
+    
     private static final String ACTION_GENERATE = "generate";
+    
     private static final String PROPERTY_PAGE_TITLE = "codewizard.pageTitle";
     private static final String PROPERTY_PAGE_PATH_LABEL = "codewizard.pagePathLabel";
 
@@ -114,7 +119,7 @@ public class CodeWizardApp implements XPageApplication
      */
     private String getCodeWizardPage( HttpServletRequest request )
     {
-        HashMap model = new HashMap( );
+        Map<String,Object> model = new HashMap<>( );
         model.put( MARK_COMBO_GENERATORS, GeneratorService.getGeneratorsList( ) );
 
         HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_CODE_WIZARD, request.getLocale( ), model );
@@ -131,7 +136,7 @@ public class CodeWizardApp implements XPageApplication
      */
     private String getGeneratePage( HttpServletRequest request )
     {
-        String strPage = "";
+        String strSourceCode = "";
         String strPackageName = request.getParameter( PARAM_PACKAGE );
         String strClassName = request.getParameter( PARAM_CLASSNAME );
         String strTable = request.getParameter( PARAM_TABLE );
@@ -149,10 +154,15 @@ public class CodeWizardApp implements XPageApplication
         if ( strGenerationType != null )
         {
             int nIndex = Integer.parseInt( strGenerationType );
-            strPage = GeneratorService.generate( bo, nIndex );
+            strSourceCode = GeneratorService.generate( bo, nIndex );
         }
+       
+        Map<String,Object> model = new HashMap<>( );
+        model.put( MARK_SOURCE_CODE, strSourceCode );
 
-        return strPage;
+        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_SOURCE_CODE, request.getLocale( ), model );
+
+        return template.getHtml( );
     }
 
     /**

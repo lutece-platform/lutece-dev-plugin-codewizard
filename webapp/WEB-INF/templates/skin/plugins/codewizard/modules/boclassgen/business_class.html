@@ -1,9 +1,3 @@
-<div class="row">
-	<div class="container">
-		<div class="panel panel-default">
-			<div class="panel-body">
-				<pre>
-					<font class="comment">
 /*
  * Copyright (c) 2002-${.now?string('yyyy')}, Mairie de Paris
 * All rights reserved.
@@ -36,42 +30,37 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * License 1.0
- */ </font>
-<font class="modify">package</font> ${businessObject.packageName};
-<font class="comment">
+ */ 
+package ${businessObject.packageName};
+
 /**
  * This is the business class for the object ${businessObject.className}
- */ </font>
-<font class="modify">public class</font> ${businessObject.className}
+ */ 
+public class ${businessObject.className}
 {
-    <font class="comment">// Variables declarations </font>
+    // Variables declarations 
     <#list businessObject.attributes as attribute>
-    <font class="modify">private </font>${attribute.type} _${attribute.variableName};
+    private ${attribute.type} _${attribute.variableName};
     </#list>
     
     <#list businessObject.attributes as attribute>
-    <font class="comment">
+    
        /**
         * Returns the ${attribute.name}
         * @return The ${attribute.name}
-        */ </font>
-    <font class="modify">public </font>${attribute.type} get${attribute.name}()
+        */ 
+    public ${attribute.type} get${attribute.name}()
     {
-        <font class="keyword">return </font>_${attribute.variableName};
+        return _${attribute.variableName};
     }
-    <font class="comment">
+    
        /**
         * Sets the ${attribute.name}
         * @param ${attribute.variableName} The ${attribute.name}
-        */ </font>
-    <font class="modify">public void </font>set${attribute.name}( ${attribute.type} ${attribute.variableName} )
+        */ 
+    public void set${attribute.name}( ${attribute.type} ${attribute.variableName} )
     {
         _${attribute.variableName} = ${attribute.variableName};
     }
     </#list>
  }
-</pre>
-</div>
-</div>
-</div>
-</div>
