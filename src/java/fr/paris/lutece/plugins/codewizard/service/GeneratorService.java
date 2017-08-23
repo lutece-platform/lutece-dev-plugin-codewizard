@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2016, Mairie de Paris
+ * Copyright (c) 2002-2017, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -42,47 +42,48 @@ import fr.paris.lutece.util.html.HtmlTemplate;
 
 import java.util.HashMap;
 
-
-
 /**
  * This class generatot class
  */
 public class GeneratorService
 {
-    //Constants
+    // Constants
     private static final String PROPERTY_GENERATOR = "codewizard.generator";
     private static final String MARK_OBJECT_BO = "businessObject";
 
     /** private constructor */
-    private GeneratorService()
+    private GeneratorService( )
     {
     }
 
     /**
      * Generate code
-     * @param bo The business object
-     * @param nIndex The template index
+     * 
+     * @param bo
+     *            The business object
+     * @param nIndex
+     *            The template index
      * @return The source code
      */
     public static String generate( BusinessObject bo, int nIndex )
     {
         String strTemplate = getTemplate( nIndex );
-        HashMap model = new HashMap(  );
+        HashMap model = new HashMap( );
         model.put( MARK_OBJECT_BO, bo );
 
-        HtmlTemplate template = AppTemplateService.getTemplate( strTemplate, LocaleService.getDefault(), model );
+        HtmlTemplate template = AppTemplateService.getTemplate( strTemplate, LocaleService.getDefault( ), model );
 
-        return template.getHtml(  );
+        return template.getHtml( );
     }
-    
+
     /**
      * Return the list of generators
      *
      * @return the list of generators
      */
-    public static ReferenceList getGeneratorsList(  )
+    public static ReferenceList getGeneratorsList( )
     {
-        ReferenceList listGenerators = new ReferenceList(  );
+        ReferenceList listGenerators = new ReferenceList( );
         String strGeneratorText;
         int i = 1;
 
@@ -97,7 +98,9 @@ public class GeneratorService
 
     /**
      * Return template of generation
-     * @param nIndex the index
+     * 
+     * @param nIndex
+     *            the index
      * @return the template
      */
     private static String getTemplate( int nIndex )
@@ -105,6 +108,6 @@ public class GeneratorService
         String strTemplate = AppPropertiesService.getProperty( PROPERTY_GENERATOR + nIndex + ".template" );
 
         return strTemplate;
-    }    
+    }
 
 }

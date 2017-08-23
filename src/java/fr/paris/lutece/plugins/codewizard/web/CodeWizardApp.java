@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2016, Mairie de Paris
+ * Copyright (c) 2002-2017, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -50,13 +50,12 @@ import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
 
-
 /**
  * Thi class manage CodeWizard Page
  */
 public class CodeWizardApp implements XPageApplication
 {
-    //Constants
+    // Constants
     private static final String MARK_COMBO_GENERATORS = "combo_generators";
     private static final String TEMPLATE_CODE_WIZARD = "/skin/plugins/codewizard/code_wizard.html";
     private static final String PARAM_ACTION = "action";
@@ -73,18 +72,21 @@ public class CodeWizardApp implements XPageApplication
     /**
      * getPage
      *
-     * @param request HttpServletRequest
-     * @param nMode int
-     * @param plugin Plugin
+     * @param request
+     *            HttpServletRequest
+     * @param nMode
+     *            int
+     * @param plugin
+     *            Plugin
      * @return XPage
      */
     @Override
     public XPage getPage( HttpServletRequest request, int nMode, Plugin plugin )
     {
-        XPage page = new XPage(  );
+        XPage page = new XPage( );
 
-        page.setTitle( I18nService.getLocalizedString( PROPERTY_PAGE_TITLE, request.getLocale(  ) ) );
-        page.setPathLabel( I18nService.getLocalizedString( PROPERTY_PAGE_PATH_LABEL, request.getLocale(  ) ) );
+        page.setTitle( I18nService.getLocalizedString( PROPERTY_PAGE_TITLE, request.getLocale( ) ) );
+        page.setPathLabel( I18nService.getLocalizedString( PROPERTY_PAGE_PATH_LABEL, request.getLocale( ) ) );
 
         String strContent;
         String strAction = request.getParameter( PARAM_ACTION );
@@ -105,22 +107,26 @@ public class CodeWizardApp implements XPageApplication
 
     /**
      * Return the CodeWizard Page
-     * @param request The HttpServletRequest
+     * 
+     * @param request
+     *            The HttpServletRequest
      * @return the html code
      */
     private String getCodeWizardPage( HttpServletRequest request )
     {
-        HashMap model = new HashMap(  );
-        model.put( MARK_COMBO_GENERATORS, GeneratorService.getGeneratorsList(  ) );
+        HashMap model = new HashMap( );
+        model.put( MARK_COMBO_GENERATORS, GeneratorService.getGeneratorsList( ) );
 
-        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_CODE_WIZARD, request.getLocale(  ), model );
+        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_CODE_WIZARD, request.getLocale( ), model );
 
-        return template.getHtml(  );
+        return template.getHtml( );
     }
 
     /**
      * Return the generated page
-     * @param request The HttpServletRequest
+     * 
+     * @param request
+     *            The HttpServletRequest
      * @return strPage
      */
     private String getGeneratePage( HttpServletRequest request )
@@ -132,7 +138,7 @@ public class CodeWizardApp implements XPageApplication
         String strPlugin = request.getParameter( PARAM_PLUGIN );
         String strGenerationType = request.getParameter( PARAM_GENERATION_TYPE );
         String strAttributesList = request.getParameter( PARAM_ATTRIBUTES );
-        BusinessObject bo = new BusinessObject(  );
+        BusinessObject bo = new BusinessObject( );
 
         bo.setClassName( strClassName );
         bo.setPackageName( strPackageName );
@@ -151,25 +157,28 @@ public class CodeWizardApp implements XPageApplication
 
     /**
      * Parse the attributes of the list
-     * @param strAttributesList the list of attributes
-     * @param bo the BusinessObject
+     * 
+     * @param strAttributesList
+     *            the list of attributes
+     * @param bo
+     *            the BusinessObject
      */
     private void parseAttributesList( String strAttributesList, BusinessObject bo )
     {
-        StringTokenizer stLines = new StringTokenizer( strAttributesList.trim(  ), "\r\n" );
+        StringTokenizer stLines = new StringTokenizer( strAttributesList.trim( ), "\r\n" );
         boolean bFirst = true;
 
-        while ( stLines.hasMoreTokens(  ) )
+        while ( stLines.hasMoreTokens( ) )
         {
-            String strLine = stLines.nextToken(  );
-            strLine = strLine.trim(  );
+            String strLine = stLines.nextToken( );
+            strLine = strLine.trim( );
 
             StringTokenizer stElements = new StringTokenizer( strLine, " " );
 
-            if ( stElements.countTokens(  ) == 2 )
+            if ( stElements.countTokens( ) == 2 )
             {
-                String strColumnName = stElements.nextToken(  );
-                String strJavaType = stElements.nextToken(  );
+                String strColumnName = stElements.nextToken( );
+                String strJavaType = stElements.nextToken( );
                 ObjectAttribute attribute = new ObjectAttribute( strColumnName, strJavaType );
                 bo.addAttribute( attribute );
 
@@ -181,6 +190,5 @@ public class CodeWizardApp implements XPageApplication
             }
         }
     }
-
 
 }

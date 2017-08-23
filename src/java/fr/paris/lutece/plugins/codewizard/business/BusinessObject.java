@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2016, Mairie de Paris
+ * Copyright (c) 2002-2017, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -37,24 +37,24 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-
 /**
  * This class provide the Business Object object
  */
 public class BusinessObject
 {
-    //Constants
+    // Constants
     private String _strPackageName;
     private String _strClassName;
     private String _strTable;
     private String _strIdColumnName;
     private String _strPluginName;
-    private List<ObjectAttribute> _attributes = new ArrayList<ObjectAttribute>(  );
+    private List<ObjectAttribute> _attributes = new ArrayList<ObjectAttribute>( );
 
     /**
      * Sets the PackageName
      *
-     * @param strPackageName The PackageName
+     * @param strPackageName
+     *            The PackageName
      */
     public void setPackageName( String strPackageName )
     {
@@ -66,7 +66,7 @@ public class BusinessObject
      *
      * @return The PackageName
      */
-    public String getPackageName(  )
+    public String getPackageName( )
     {
         return _strPackageName;
     }
@@ -74,7 +74,8 @@ public class BusinessObject
     /**
      * Sets the ClassName
      *
-     * @param strClassName The ClassName
+     * @param strClassName
+     *            The ClassName
      */
     public void setClassName( String strClassName )
     {
@@ -86,7 +87,7 @@ public class BusinessObject
      *
      * @return The ClassName
      */
-    public String getClassName(  )
+    public String getClassName( )
     {
         return _strClassName;
     }
@@ -94,7 +95,8 @@ public class BusinessObject
     /**
      * Sets the Table
      *
-     * @param strTable The Table
+     * @param strTable
+     *            The Table
      */
     public void setTable( String strTable )
     {
@@ -106,7 +108,7 @@ public class BusinessObject
      *
      * @return The Table
      */
-    public String getTable(  )
+    public String getTable( )
     {
         return _strTable;
     }
@@ -114,7 +116,8 @@ public class BusinessObject
     /**
      * Sets the IdColumnName
      *
-     * @param strIdColumnName The IdColumnName
+     * @param strIdColumnName
+     *            The IdColumnName
      */
     public void setIdColumnName( String strIdColumnName )
     {
@@ -126,13 +129,14 @@ public class BusinessObject
      *
      * @return The IdColumnName
      */
-    public String getIdColumnName(  )
+    public String getIdColumnName( )
     {
         return _strIdColumnName;
     }
 
     /*
      * Add Attributes
+     * 
      * @param attribute The ObjectAttribute
      */
     public void addAttribute( ObjectAttribute attribute )
@@ -142,18 +146,20 @@ public class BusinessObject
 
     /**
      * Returns the select Sql request
+     * 
      * @return null
      */
-    public String getSelectSQLRequest(  )
+    public String getSelectSQLRequest( )
     {
         return null;
     }
 
     /**
      * Returns a collection of attributes
+     * 
      * @return _attributes
      */
-    public Collection<ObjectAttribute> getAttributes(  )
+    public Collection<ObjectAttribute> getAttributes( )
     {
         return _attributes;
     }
@@ -163,26 +169,28 @@ public class BusinessObject
      *
      * @return The InstanceName
      */
-    public String getInstanceName(  )
+    public String getInstanceName( )
     {
-        String strInstanceName = _strClassName.substring( 0, 1 ).toLowerCase(  ) +
-            _strClassName.substring( 1, _strClassName.length(  ) );
+        String strInstanceName = _strClassName.substring( 0, 1 ).toLowerCase( ) + _strClassName.substring( 1, _strClassName.length( ) );
 
         return strInstanceName;
     }
 
     /**
      * Returns the PluginName
+     * 
      * @return The PluginName
      */
-    public String getPluginName(  )
+    public String getPluginName( )
     {
         return _strPluginName;
     }
 
     /**
      * Sets the PluginName
-     * @param strPluginName The PluginName
+     * 
+     * @param strPluginName
+     *            The PluginName
      */
     public void setPluginName( String strPluginName )
     {

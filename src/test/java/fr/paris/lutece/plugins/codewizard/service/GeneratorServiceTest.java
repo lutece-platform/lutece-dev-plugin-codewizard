@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2016, Mairie de Paris
+ * Copyright (c) 2002-2017, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -32,7 +32,6 @@
  * License 1.0
  */
 
-
 package fr.paris.lutece.plugins.codewizard.service;
 
 import fr.paris.lutece.plugins.codewizard.business.BusinessObject;
@@ -52,34 +51,34 @@ public class GeneratorServiceTest extends LuteceTestCase
      * Test of generate method, of class GeneratorService.
      */
     @Test
-    public void testGenerate()
+    public void testGenerate( )
     {
         System.out.println( "generate" );
-        BusinessObject bo = getMockBusinessObject();
-        
-        ReferenceList list = GeneratorService.getGeneratorsList();
-        for( int i = 0 ; i < list.size() ; i++ )
+        BusinessObject bo = getMockBusinessObject( );
+
+        ReferenceList list = GeneratorService.getGeneratorsList( );
+        for ( int i = 0; i < list.size( ); i++ )
         {
             ReferenceItem item = list.get( i );
-            System.out.println( "******************* " + item.getName() + " **************************");
-            String strCode = GeneratorService.generate( bo, Integer.parseInt( item.getCode() ) );
+            System.out.println( "******************* " + item.getName( ) + " **************************" );
+            String strCode = GeneratorService.generate( bo, Integer.parseInt( item.getCode( ) ) );
             System.out.println( strCode );
         }
     }
-    
-    private BusinessObject getMockBusinessObject()
+
+    private BusinessObject getMockBusinessObject( )
     {
-        BusinessObject bo = new BusinessObject();
+        BusinessObject bo = new BusinessObject( );
         bo.setClassName( "MyObject" );
-        bo.setPluginName( "myplugin");
-        bo.setPackageName( "fr.paris.lutece.plugins.myplugin");
+        bo.setPluginName( "myplugin" );
+        bo.setPackageName( "fr.paris.lutece.plugins.myplugin" );
         bo.setTable( "myplugin_myobject" );
-        bo.setIdColumnName( "id_myobject");
+        bo.setIdColumnName( "id_myobject" );
         ObjectAttribute attr1 = new ObjectAttribute( "id_myobject", "int" );
         bo.addAttribute( attr1 );
         ObjectAttribute attr2 = new ObjectAttribute( "name", "String" );
         bo.addAttribute( attr2 );
         return bo;
     }
-    
+
 }
