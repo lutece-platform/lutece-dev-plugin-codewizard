@@ -56,7 +56,7 @@ public class JavaTypeService
         _mapJavaType.put( "boolean", new JavaType( "boolean", "b", true ) );
         _mapJavaType.put( "string", new JavaType( "String", "str", true ) );
         _mapJavaType.put( "date", new JavaType( "Date", "date", true , "java.sql.Date" ) );
-        _mapJavaType.put( "timestamp", new JavaType( "Timestamp", "date", true , "java.sql.Date"  ) );
+        _mapJavaType.put( "timestamp", new JavaType( "Timestamp", "date", true , "java.sql.Timestamp"  ) );
         _mapJavaType.put( "map", new JavaType( "Map", "map", false , "java.util.Map"  ) );
         _mapJavaType.put( "list", new JavaType( "List", "list", false , "java.util.List"  ) );
         _bInit = true;

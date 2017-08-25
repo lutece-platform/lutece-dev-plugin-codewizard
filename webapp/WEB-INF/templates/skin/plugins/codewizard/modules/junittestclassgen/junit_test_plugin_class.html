@@ -39,6 +39,9 @@ import fr.paris.lutece.plugins.${businessObject.pluginName}.business.${businessO
 import fr.paris.lutece.plugins.${businessObject.pluginName}.business.${businessObject.className}Home;
 import fr.paris.lutece.portal.service.plugin.PluginService;
 import fr.paris.lutece.portal.service.plugin.Plugin;
+<#list businessObject.imports as import>
+import ${import};
+</#list>
 
 public class ${businessObject.className}BusinessTest extends LuteceTestCase
 {
@@ -46,9 +49,21 @@ public class ${businessObject.className}BusinessTest extends LuteceTestCase
 <#if attribute.type = "String"> 
     private final static ${attribute.type} ${attribute.name?upper_case}1 = "${attribute.name}1";
     private final static ${attribute.type} ${attribute.name?upper_case}2 = "${attribute.name}2";
-<#else>
+<#elseif attribute.type = "int" || attribute.type = "long" >
     private final static ${attribute.type} ${attribute.name?upper_case}1 = 1;
     private final static ${attribute.type} ${attribute.name?upper_case}2 = 2;
+<#elseif attribute.type = "float" || attribute.type = "double">
+    private final static ${attribute.type} ${attribute.name?upper_case}1 = 1.0;
+    private final static ${attribute.type} ${attribute.name?upper_case}2 = 2.0;
+<#elseif attribute.type = "boolean">
+    private final static ${attribute.type} ${attribute.name?upper_case}1 = true;
+    private final static ${attribute.type} ${attribute.name?upper_case}2 = false;
+<#elseif attribute.type = "Date">
+    private final static ${attribute.type} ${attribute.name?upper_case}1 = new Date( 1 );
+    private final static ${attribute.type} ${attribute.name?upper_case}2 = new Date( 2 );
+<#elseif attribute.type = "Timestamp">
+    private final static ${attribute.type} ${attribute.name?upper_case}1 = new Timestamp( 1 );
+    private final static ${attribute.type} ${attribute.name?upper_case}2 = new Timestamp( 2 );
 </#if>
 </#list>
 

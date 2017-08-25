@@ -154,24 +154,24 @@ public final class ${businessObject.className}DAO implements I${businessObject.c
         @Override
         public List&lt;${businessObject.className}&gt; select${businessObject.className}sList( Plugin plugin )
 	{
-		List&lt;${businessObject.className}&gt; list${businessObject.instanceName}s = new ArrayList&lt;&gt;(  );
+		List&lt;${businessObject.className}&gt; list${businessObject.className}s = new ArrayList&lt;&gt;(  );
 		DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL , plugin );
 		daoUtil.executeQuery(  );
 
 		while ( daoUtil.next(  ) )
 		{
-                ${businessObject.className} ${businessObject.instanceName} = new ${businessObject.className}(  );
+                    ${businessObject.className} ${businessObject.instanceName} = new ${businessObject.className}(  );
 
                 <#list businessObject.daoAttributes as attribute>
                     ${businessObject.instanceName}.set${attribute.name}( daoUtil.get${attribute.type?cap_first}( ${attribute_index+1} ) );
                 </#list>
 
-                list${businessObject.instanceName}s.add( ${businessObject.instanceName} );
+                    list${businessObject.className}s.add( ${businessObject.instanceName} );
 		}
 
 		daoUtil.free();
                 
-		return list${businessObject.instanceName}s;
+		return list${businessObject.className}s;
 	}
 
 }
