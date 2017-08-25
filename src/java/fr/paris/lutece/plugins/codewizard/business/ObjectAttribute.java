@@ -44,12 +44,13 @@ public class ObjectAttribute
     private String _strName;
     private String _strVariableName;
     private boolean _bDaoType;
+    private String _strTestInitValue1;
+    private String _strTestInitValue2;
 
     /**
      * Sets the Name
      *
-     * @param strName
-     *            The Name
+     * @param strName The Name
      */
     public void setName( String strName )
     {
@@ -61,7 +62,7 @@ public class ObjectAttribute
      *
      * @return The Name
      */
-    public String getName( )
+    public String getName()
     {
         return _strName;
     }
@@ -71,7 +72,7 @@ public class ObjectAttribute
      *
      * @return The VariableName
      */
-    public String getVariableName( )
+    public String getVariableName()
     {
         return _strVariableName;
     }
@@ -79,8 +80,7 @@ public class ObjectAttribute
     /**
      * Sets the VariableName
      *
-     * @param strVariableName
-     *            The VariableName
+     * @param strVariableName The VariableName
      */
     public void setVariableName( String strVariableName )
     {
@@ -92,7 +92,7 @@ public class ObjectAttribute
      *
      * @return The DaoType
      */
-    public boolean isDaoType( )
+    public boolean isDaoType()
     {
         return _bDaoType;
     }
@@ -100,8 +100,7 @@ public class ObjectAttribute
     /**
      * Sets the DaoType
      *
-     * @param bDaoType
-     *            The DaoType
+     * @param bDaoType The DaoType
      */
     public void setDaoType( boolean bDaoType )
     {
@@ -111,8 +110,7 @@ public class ObjectAttribute
     /**
      * Sets the column name
      *
-     * @param strColumnName
-     *            The column name
+     * @param strColumnName The column name
      */
     public void setColumnName( String strColumnName )
     {
@@ -124,7 +122,7 @@ public class ObjectAttribute
      *
      * @return The ColumnName
      */
-    public String getColumnName( )
+    public String getColumnName()
     {
         return _strColumnName;
     }
@@ -132,8 +130,7 @@ public class ObjectAttribute
     /**
      * Sets the Type
      *
-     * @param strType
-     *            The Type
+     * @param strType The Type
      */
     public void setType( String strType )
     {
@@ -145,9 +142,48 @@ public class ObjectAttribute
      *
      * @return The Type
      */
-    public String getType( )
+    public String getType()
     {
         return _strJavaType;
     }
 
+    /**
+     * Returns the TestInitValue1
+     *
+     * @return The TestInitValue1
+     */
+    public String getTestInitValue1()
+    {
+        return _strTestInitValue1;
+    }
+
+    /**
+     * Sets the TestInitValue1
+     *
+     * @param strTestInitValue1 The TestInitValue1
+     */
+    public void setTestInitValue1( String strTestInitValue1 )
+    {
+        _strTestInitValue1 = strTestInitValue1;
+    }
+
+    /**
+     * Returns the TestInitValue2
+     *
+     * @return The TestInitValue2
+     */
+    public String getTestInitValue2()
+    {
+        return _strTestInitValue2;
+    }
+
+    /**
+     * Sets the TestInitValue2
+     *
+     * @param strTestInitValue2 The TestInitValue2
+     */
+    public void setTestInitValue2( String strTestInitValue2 )
+    {
+        _strTestInitValue2 = strTestInitValue2;
+    }
 }

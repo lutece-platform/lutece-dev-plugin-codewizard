@@ -44,25 +44,8 @@ import ${import};
 public class ${businessObject.className}Test extends LuteceTestCase
 {
 <#list businessObject.daoAttributes as attribute>
-<#if attribute.type = "String"> 
-    private final static ${attribute.type} ${attribute.name?upper_case}1 = "${attribute.name}1";
-    private final static ${attribute.type} ${attribute.name?upper_case}2 = "${attribute.name}2";
-<#elseif attribute.type = "int" || attribute.type = "long" >
-    private final static ${attribute.type} ${attribute.name?upper_case}1 = 1;
-    private final static ${attribute.type} ${attribute.name?upper_case}2 = 2;
-<#elseif attribute.type = "float" || attribute.type = "double">
-    private final static ${attribute.type} ${attribute.name?upper_case}1 = 1.0;
-    private final static ${attribute.type} ${attribute.name?upper_case}2 = 2.0;
-<#elseif attribute.type = "boolean">
-    private final static ${attribute.type} ${attribute.name?upper_case}1 = true;
-    private final static ${attribute.type} ${attribute.name?upper_case}2 = false;
-<#elseif attribute.type = "Date">
-    private final static ${attribute.type} ${attribute.name?upper_case}1 = new Date( 1 );
-    private final static ${attribute.type} ${attribute.name?upper_case}2 = new Date( 2 );
-<#elseif attribute.type = "Timestamp">
-    private final static ${attribute.type} ${attribute.name?upper_case}1 = new Timestamp( 1 );
-    private final static ${attribute.type} ${attribute.name?upper_case}2 = new Timestamp( 2 );
-</#if>
+    private final static ${attribute.type} ${attribute.name?upper_case}1 = ${attribute.testInitValue1};
+    private final static ${attribute.type} ${attribute.name?upper_case}2 = ${attribute.testInitValue2};
 </#list>
 
     public void testBusiness(  )

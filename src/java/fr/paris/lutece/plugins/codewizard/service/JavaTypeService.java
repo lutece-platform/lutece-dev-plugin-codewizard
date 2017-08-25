@@ -36,6 +36,7 @@ package fr.paris.lutece.plugins.codewizard.service;
 
 import fr.paris.lutece.plugins.codewizard.business.JavaType;
 import fr.paris.lutece.plugins.codewizard.business.ObjectAttribute;
+import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -49,16 +50,17 @@ public class JavaTypeService
 
     private static void init( )
     {
-        _mapJavaType.put( "int", new JavaType( "int", "n", true ) );
-        _mapJavaType.put( "float", new JavaType( "float", "f", true ) );
-        _mapJavaType.put( "long", new JavaType( "long", "l", true ) );
-        _mapJavaType.put( "double", new JavaType( "double", "d", true ) );
-        _mapJavaType.put( "boolean", new JavaType( "boolean", "b", true ) );
-        _mapJavaType.put( "string", new JavaType( "String", "str", true ) );
-        _mapJavaType.put( "date", new JavaType( "Date", "date", true , "java.sql.Date" ) );
-        _mapJavaType.put( "timestamp", new JavaType( "Timestamp", "date", true , "java.sql.Timestamp"  ) );
-        _mapJavaType.put( "map", new JavaType( "Map", "map", false , "java.util.Map"  ) );
-        _mapJavaType.put( "list", new JavaType( "List", "list", false , "java.util.List"  ) );
+        // constructor parameters : Java type | prefix | use in DAO | required import | test value format
+        _mapJavaType.put( "int", new JavaType( "int", "n", true , null , "{0}" ) );
+        _mapJavaType.put( "float", new JavaType( "float", "f", true  , null , "{0}.0") );
+        _mapJavaType.put( "long", new JavaType( "long", "l", true , null , "{0}L" ) );
+        _mapJavaType.put( "double", new JavaType( "double", "d", true  , null , "{0}.0") );
+        _mapJavaType.put( "boolean", new JavaType( "boolean", "b", true , null , "true" ) );
+        _mapJavaType.put( "string", new JavaType( "String", "str", true , null , "\"{1}{0}\"" ) );
+        _mapJavaType.put( "date", new JavaType( "Date", "date", true , "java.sql.Date" , "new Date( {0}L )" ) );
+        _mapJavaType.put( "timestamp", new JavaType( "Timestamp", "date", true , "java.sql.Timestamp"  , "new Timestamp( {0}L )" ) );
+        _mapJavaType.put( "map", new JavaType( "Map", "map", false , "java.util.Map" , "" ) );
+        _mapJavaType.put( "list", new JavaType( "List", "list", false , "java.util.List" , ""  ) );
         _bInit = true;
     }
 
@@ -80,6 +82,10 @@ public class JavaTypeService
             attribute.setType( jt.getName( ) );
             attribute.setVariableName( jt.getPrefix( ) + strName );
             attribute.setDaoType( jt.isDaoType( ) );
+            Object[] args1 = { "1" , strName };
+            Object[] args2 = { "2" , strName };
+            attribute.setTestInitValue1( MessageFormat.format( jt.getTestInitValueFormat(), args1));
+            attribute.setTestInitValue2( MessageFormat.format( jt.getTestInitValueFormat(), args2));
         }
         else
         {

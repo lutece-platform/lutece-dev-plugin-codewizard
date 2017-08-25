@@ -31,7 +31,6 @@
  *
  * License 1.0
  */
-
 package fr.paris.lutece.plugins.codewizard.business;
 
 /**
@@ -39,105 +38,80 @@ package fr.paris.lutece.plugins.codewizard.business;
  */
 public class JavaType
 {
+
     // Variables declarations
     private String _strName;
     private String _strPrefix;
     private boolean _bIsDaoType;
     private String _strImport;
+    private String _strTestInitValueFormat;
 
     /**
      * Constructor
-     * 
-     * @param strName
-     *            The name
-     * @param strPrefix
-     *            The prefix
+     *
+     * @param strName The name
+     * @param strPrefix The prefix
+     * @param bDaoType if it's a dao attribute
+     * @param strImport The java type import if necessary
+     * @param strTestInitValueFormat test init value format
      */
-    public JavaType( String strName, String strPrefix )
-    {
-        this( strName, strPrefix, false, null );
-    }
-
-    /**
-     * Constructor
-     * 
-     * @param strName
-     *            The name
-     * @param strPrefix
-     *            The prefix
-     * @param bDaoType
-     */
-    public JavaType( String strName, String strPrefix, boolean bDaoType )
-    {
-        this( strName, strPrefix, bDaoType, null );
-    }
-    
-    /**
-     * Constructor
-     * 
-     * @param strName
-     *            The name
-     * @param strPrefix
-     *            The prefix
-     * @param bDaoType
-     *            if it's a dao attribute  
-     * @param strImport
-     *            The java type import if necessary
-     */
-    public JavaType( String strName, String strPrefix, boolean bDaoType, String strImport )
+    public JavaType( String strName, String strPrefix, boolean bDaoType, String strImport, String strTestInitValueFormat )
     {
         _strName = strName;
         _strPrefix = strPrefix;
         _bIsDaoType = bDaoType;
         _strImport = strImport;
+        _strTestInitValueFormat = strTestInitValueFormat;
     }
 
     /**
      * Returns the Name
-     * 
+     *
      * @return The Name
      */
-    public String getName( )
+    public String getName()
     {
         return _strName;
     }
 
     /**
      * Returns the Prefix
-     * 
+     *
      * @return The Prefix
      */
-    public String getPrefix( )
+    public String getPrefix()
     {
         return _strPrefix;
     }
 
     /**
      * Return true if the type is DAOUtil compatible
-     * 
+     *
      * @return true if the type is DAOUtil compatible
      */
-    public boolean isDaoType( )
+    public boolean isDaoType()
     {
         return _bIsDaoType;
     }
-    
-     /**
-        * Returns the Import
-        * @return The Import
-        */ 
+
+    /**
+     * Returns the Import
+     *
+     * @return The Import
+     */
     public String getImport()
     {
         return _strImport;
     }
-    
-       /**
-        * Sets the Import
-        * @param strImport The Import
-        */ 
-    public void setImport( String strImport )
+
+    /**
+     * Returns the TestInitValueFormat
+     *
+     * @return The TestInitValueFormat
+     */
+    public String getTestInitValueFormat()
     {
-        _strImport = strImport;
+        return _strTestInitValueFormat;
     }
 
 }
