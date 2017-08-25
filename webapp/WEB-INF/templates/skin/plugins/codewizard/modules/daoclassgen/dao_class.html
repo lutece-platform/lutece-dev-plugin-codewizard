@@ -50,11 +50,11 @@ public final class ${businessObject.className}DAO implements I${businessObject.c
 	
 	// Constants
 	private static final String SQL_QUERY_NEW_PK = "SELECT max( ${businessObject.idColumnName} ) FROM ${businessObject.table}";
-	private static final String SQL_QUERY_SELECT = "SELECT <#list businessObject.attributes as attribute>${attribute.columnName}<#if attribute_has_next>, </#if></#list> FROM ${businessObject.table} WHERE ${businessObject.idColumnName} = ?";
-	private static final String SQL_QUERY_INSERT = "INSERT INTO ${businessObject.table} ( <#list businessObject.attributes as attribute>${attribute.columnName}<#if attribute_has_next>, </#if></#list> ) VALUES ( <#list businessObject.attributes as attribute>?<#if attribute_has_next>, </#if></#list> ) ";
+	private static final String SQL_QUERY_SELECT = "SELECT <#list businessObject.daoAttributes as attribute>${attribute.columnName}<#if attribute_has_next>, </#if></#list> FROM ${businessObject.table} WHERE ${businessObject.idColumnName} = ?";
+	private static final String SQL_QUERY_INSERT = "INSERT INTO ${businessObject.table} ( <#list businessObject.daoAttributes as attribute>${attribute.columnName}<#if attribute_has_next>, </#if></#list> ) VALUES ( <#list businessObject.daoAttributes as attribute>?<#if attribute_has_next>, </#if></#list> ) ";
 	private static final String SQL_QUERY_DELETE = "DELETE FROM ${businessObject.table} WHERE ${businessObject.idColumnName} = ? ";
-	private static final String SQL_QUERY_UPDATE = "UPDATE ${businessObject.table} SET <#list businessObject.attributes as attribute>${attribute.columnName} = ?<#if attribute_has_next>, </#if></#list> WHERE ${businessObject.idColumnName} = ?";
-	private static final String SQL_QUERY_SELECTALL = "SELECT <#list businessObject.attributes as attribute>${attribute.columnName}<#if attribute_has_next>, </#if></#list> FROM ${businessObject.table}";
+	private static final String SQL_QUERY_UPDATE = "UPDATE ${businessObject.table} SET <#list businessObject.daoAttributes as attribute>${attribute.columnName} = ?<#if attribute_has_next>, </#if></#list> WHERE ${businessObject.idColumnName} = ?";
+	private static final String SQL_QUERY_SELECTALL = "SELECT <#list businessObject.daoAttributes as attribute>${attribute.columnName}<#if attribute_has_next>, </#if></#list> FROM ${businessObject.table}";
 
 
 	
@@ -83,7 +83,7 @@ public final class ${businessObject.className}DAO implements I${businessObject.c
                 
 		${businessObject.instanceName}.setId( newPrimaryKey() );
                 int nIndex = 0;
-        	<#list businessObject.attributes as attribute>
+        	<#list businessObject.daoAttributes as attribute>
                 daoUtil.set${attribute.type?cap_first} ( ++nIndex , ${businessObject.instanceName}.get${attribute.name} ( ) );
                 </#list>
 
@@ -107,7 +107,7 @@ public final class ${businessObject.className}DAO implements I${businessObject.c
 		{
                         int nIndex = 0;
 			${businessObject.instanceName} = new ${businessObject.className}();
-                <#list businessObject.attributes as attribute>
+                <#list businessObject.daoAttributes as attribute>
                         ${businessObject.instanceName}.set${attribute.name}( daoUtil.get${attribute.type?cap_first}( ++nIndex ) );
                 </#list>
 		}
@@ -137,7 +137,7 @@ public final class ${businessObject.className}DAO implements I${businessObject.c
 	{
 		DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE );
                 int nIndex = 0;
-             <#list businessObject.attributes as attribute>
+             <#list businessObject.daoAttributes as attribute>
                 daoUtil.set${attribute.type?cap_first}( ++nIndex , ${businessObject.instanceName}.get${attribute.name}( ) );
              </#list>
                 daoUtil.setInt( ++nIndex , ${businessObject.instanceName}.getId( ) );
@@ -159,7 +159,7 @@ public final class ${businessObject.className}DAO implements I${businessObject.c
 		while ( daoUtil.next(  ) )
 		{
                     ${businessObject.className} ${businessObject.instanceName} = new ${businessObject.className}(  );
-                <#list businessObject.attributes as attribute>
+                <#list businessObject.daoAttributes as attribute>
                     ${businessObject.instanceName}.set${attribute.name}( daoUtil.get${attribute.type?cap_first}( ${attribute_index+1} ) );
                 </#list>
                     list${businessObject.instanceName}s.add( ${businessObject.instanceName} );

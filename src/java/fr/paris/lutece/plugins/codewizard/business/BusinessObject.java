@@ -33,8 +33,8 @@
  */
 package fr.paris.lutece.plugins.codewizard.business;
 
+import fr.paris.lutece.plugins.codewizard.service.JavaTypeService;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -155,13 +155,48 @@ public class BusinessObject
     }
 
     /**
-     * Returns a collection of attributes
+     * Returns a list of attributes
      * 
      * @return _attributes
      */
-    public Collection<ObjectAttribute> getAttributes( )
+    public List<ObjectAttribute> getAttributes( )
     {
         return _attributes;
+    }
+    
+    /**
+     * Return a valid list of attribute for DAO
+     * @return The list
+     */
+    public List<ObjectAttribute> getDaoAttributes( )
+    {
+        List<ObjectAttribute> list = new ArrayList<>();
+        for( ObjectAttribute attribute :  _attributes )
+        {
+            if( attribute.isDaoType() )
+            {
+                list.add( attribute );
+            }
+        }
+        return list;
+    }
+
+    /**
+     * The list of import needed by object's attributes
+     * @return The list of import
+     */
+    public List<String> getImports( )
+    {
+        List<String> list = new ArrayList<>();
+        for( ObjectAttribute attribute :  _attributes )
+        {
+            String strImport = JavaTypeService.getImport( attribute.getType() );
+            if( strImport != null )
+            {
+                list.add( strImport );
+            }
+        }
+        return list;
     }
 
     /**

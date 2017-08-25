@@ -74,9 +74,9 @@ public class GeneratorServiceTest extends LuteceTestCase
         bo.setPackageName( "fr.paris.lutece.plugins.myplugin" );
         bo.setTable( "myplugin_myobject" );
         bo.setIdColumnName( "id_myobject" );
-        ObjectAttribute attr1 = new ObjectAttribute( "id_myobject", "int" );
+        ObjectAttribute attr1 = JavaTypeService.getAttribute( "id_myobject", "int" );
         bo.addAttribute( attr1 );
-        ObjectAttribute attr2 = new ObjectAttribute( "name", "String" );
+        ObjectAttribute attr2 = JavaTypeService.getAttribute( "name", "String" );
         bo.addAttribute( attr2 );
         return bo;
     }

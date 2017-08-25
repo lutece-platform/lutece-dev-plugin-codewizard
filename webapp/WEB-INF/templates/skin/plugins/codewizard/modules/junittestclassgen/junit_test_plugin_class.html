@@ -42,7 +42,7 @@ import fr.paris.lutece.portal.service.plugin.Plugin;
 
 public class ${businessObject.className}BusinessTest extends LuteceTestCase
 {
-<#list businessObject.attributes as attribute>
+<#list businessObject.daoAttributes as attribute>
 <#if attribute.type = "String"> 
     private final static ${attribute.type} ${attribute.name?upper_case}1 = "${attribute.name}1";
     private final static ${attribute.type} ${attribute.name?upper_case}2 = "${attribute.name}2";
@@ -58,24 +58,24 @@ public class ${businessObject.className}BusinessTest extends LuteceTestCase
         
         // Initialize an object
         ${businessObject.className} ${businessObject.instanceName} = new ${businessObject.className}();
-        <#list businessObject.attributes as attribute>
+        <#list businessObject.daoAttributes as attribute>
         ${businessObject.instanceName}.set${attribute.name}( ${attribute.name?upper_case}1 );
         </#list>
 
         // Create test
         ${businessObject.className}Home.create( ${businessObject.instanceName} , plugin );
         ${businessObject.className} ${businessObject.instanceName}Stored = ${businessObject.className}Home.findByPrimaryKey( ${businessObject.instanceName}.getId() , plugin );
-        <#list businessObject.attributes as attribute>
+        <#list businessObject.daoAttributes as attribute>
         assertEquals( ${businessObject.instanceName}Stored.get${attribute.name}() , ${businessObject.instanceName}.get${attribute.name}() );
         </#list>
 
         // Update test
-        <#list businessObject.attributes as attribute>
+        <#list businessObject.daoAttributes as attribute>
         ${businessObject.instanceName}.set${attribute.name}( ${attribute.name?upper_case}2 );
         </#list>
         ${businessObject.className}Home.update( ${businessObject.instanceName} , plugin );
         ${businessObject.instanceName}Stored = ${businessObject.className}Home.findByPrimaryKey( ${businessObject.instanceName}.getId() , plugin );
-        <#list businessObject.attributes as attribute>
+        <#list businessObject.daoAttributes as attribute>
         assertEquals( ${businessObject.instanceName}Stored.get${attribute.name}() , ${businessObject.instanceName}.get${attribute.name}() );
         </#list>
 

@@ -36,6 +36,7 @@ package fr.paris.lutece.plugins.codewizard.web;
 import fr.paris.lutece.plugins.codewizard.business.BusinessObject;
 import fr.paris.lutece.plugins.codewizard.business.ObjectAttribute;
 import fr.paris.lutece.plugins.codewizard.service.GeneratorService;
+import fr.paris.lutece.plugins.codewizard.service.JavaTypeService;
 import fr.paris.lutece.portal.service.i18n.I18nService;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
@@ -60,7 +61,7 @@ public class CodeWizardApp implements XPageApplication
 
     private static final String MARK_COMBO_GENERATORS = "combo_generators";
     private static final String MARK_SOURCE_CODE = "source_code";
-    
+
     private static final String PARAM_ACTION = "action";
     private static final String PARAM_CLASSNAME = "class";
     private static final String PARAM_PACKAGE = "package";
@@ -68,9 +69,9 @@ public class CodeWizardApp implements XPageApplication
     private static final String PARAM_PLUGIN = "plugin";
     private static final String PARAM_GENERATION_TYPE = "generation_type";
     private static final String PARAM_ATTRIBUTES = "attributes";
-    
+
     private static final String ACTION_GENERATE = "generate";
-    
+
     private static final String PROPERTY_PAGE_TITLE = "codewizard.pageTitle";
     private static final String PROPERTY_PAGE_PATH_LABEL = "codewizard.pagePathLabel";
 
@@ -119,7 +120,7 @@ public class CodeWizardApp implements XPageApplication
      */
     private String getCodeWizardPage( HttpServletRequest request )
     {
-        Map<String,Object> model = new HashMap<>( );
+        Map<String, Object> model = new HashMap<>( );
         model.put( MARK_COMBO_GENERATORS, GeneratorService.getGeneratorsList( ) );
 
         HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_CODE_WIZARD, request.getLocale( ), model );
@@ -156,8 +157,8 @@ public class CodeWizardApp implements XPageApplication
             int nIndex = Integer.parseInt( strGenerationType );
             strSourceCode = GeneratorService.generate( bo, nIndex );
         }
-       
-        Map<String,Object> model = new HashMap<>( );
+
+        Map<String, Object> model = new HashMap<>( );
         model.put( MARK_SOURCE_CODE, strSourceCode );
 
         HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_SOURCE_CODE, request.getLocale( ), model );
@@ -189,7 +190,7 @@ public class CodeWizardApp implements XPageApplication
             {
                 String strColumnName = stElements.nextToken( );
                 String strJavaType = stElements.nextToken( );
-                ObjectAttribute attribute = new ObjectAttribute( strColumnName, strJavaType );
+                ObjectAttribute attribute = JavaTypeService.getAttribute( strColumnName, strJavaType );
                 bo.addAttribute( attribute );
 
                 if ( bFirst )

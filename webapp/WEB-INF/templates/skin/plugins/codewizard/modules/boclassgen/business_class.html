@@ -33,15 +33,20 @@
  */ 
 package ${businessObject.packageName};
 
+<#list businessObject.imports as import>
+import ${import};
+</#list>
+
+
 /**
  * This is the business class for the object ${businessObject.className}
  */ 
 public class ${businessObject.className}
 {
-    // Variables declarations 
-    <#list businessObject.attributes as attribute>
-    private ${attribute.type} _${attribute.variableName};
-    </#list>
+        // Variables declarations 
+        <#list businessObject.attributes as attribute>
+        private ${attribute.type} _${attribute.variableName};
+        </#list>
     
     <#list businessObject.attributes as attribute>
     
@@ -49,18 +54,18 @@ public class ${businessObject.className}
         * Returns the ${attribute.name}
         * @return The ${attribute.name}
         */ 
-    public ${attribute.type} get${attribute.name}()
-    {
-        return _${attribute.variableName};
-    }
+        public ${attribute.type} get${attribute.name}()
+        {
+            return _${attribute.variableName};
+        }
     
        /**
         * Sets the ${attribute.name}
         * @param ${attribute.variableName} The ${attribute.name}
         */ 
-    public void set${attribute.name}( ${attribute.type} ${attribute.variableName} )
-    {
-        _${attribute.variableName} = ${attribute.variableName};
-    }
+        public void set${attribute.name}( ${attribute.type} ${attribute.variableName} )
+        {
+            _${attribute.variableName} = ${attribute.variableName};
+        }
     </#list>
  }

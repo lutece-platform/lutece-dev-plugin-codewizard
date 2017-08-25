@@ -38,36 +38,85 @@ package fr.paris.lutece.plugins.codewizard.business;
  */
 public class ObjectAttribute
 {
-    // Constants
+
     private String _strColumnName;
     private String _strJavaType;
     private String _strName;
     private String _strVariableName;
+    private boolean _bDaoType;
 
     /**
-     * Creates a new ObjectAttribute object.
-     * 
-     * @param strColumnName
-     *            The name of the column
-     * @param strJavaType
-     *            the java type
+     * Sets the Name
+     *
+     * @param strName
+     *            The Name
      */
-    public ObjectAttribute( String strColumnName, String strJavaType )
+    public void setName( String strName )
     {
-        _strColumnName = strColumnName;
-        _strJavaType = strJavaType;
-        _strName = getProperName( _strColumnName );
-        _strVariableName = getPrefix( _strJavaType ) + _strName;
+        _strName = strName;
     }
 
     /**
      * Returns the Name
-     * 
+     *
      * @return The Name
      */
     public String getName( )
     {
         return _strName;
+    }
+
+    /**
+     * Returns the VariableName
+     *
+     * @return The VariableName
+     */
+    public String getVariableName( )
+    {
+        return _strVariableName;
+    }
+
+    /**
+     * Sets the VariableName
+     *
+     * @param strVariableName
+     *            The VariableName
+     */
+    public void setVariableName( String strVariableName )
+    {
+        _strVariableName = strVariableName;
+    }
+
+    /**
+     * Returns the DaoType
+     *
+     * @return The DaoType
+     */
+    public boolean isDaoType( )
+    {
+        return _bDaoType;
+    }
+
+    /**
+     * Sets the DaoType
+     *
+     * @param bDaoType
+     *            The DaoType
+     */
+    public void setDaoType( boolean bDaoType )
+    {
+        _bDaoType = bDaoType;
+    }
+
+    /**
+     * Sets the column name
+     *
+     * @param strColumnName
+     *            The column name
+     */
+    public void setColumnName( String strColumnName )
+    {
+        _strColumnName = strColumnName;
     }
 
     /**
@@ -81,6 +130,17 @@ public class ObjectAttribute
     }
 
     /**
+     * Sets the Type
+     *
+     * @param strType
+     *            The Type
+     */
+    public void setType( String strType )
+    {
+        _strJavaType = strType;
+    }
+
+    /**
      * Returns the Type
      *
      * @return The Type
@@ -90,81 +150,4 @@ public class ObjectAttribute
         return _strJavaType;
     }
 
-    /**
-     * Returns the VariableName
-     * 
-     * @return _strVariableName The VariableName
-     */
-    public String getVariableName( )
-    {
-        return _strVariableName;
-    }
-
-    /**
-     * Returns the Prefix of variable
-     * 
-     * @param strType
-     *            the type of variable
-     * @return prefix
-     */
-    private String getPrefix( String strType )
-    {
-        if ( strType != null )
-        {
-            if ( strType.equalsIgnoreCase( "int" ) )
-            {
-                return "n";
-            }
-
-            if ( strType.equalsIgnoreCase( "String" ) )
-            {
-                return "str";
-            }
-
-            if ( strType.equalsIgnoreCase( "Date" ) )
-            {
-                return "date";
-            }
-        }
-
-        return "";
-    }
-
-    /**
-     * Returns the Proper Name
-     * 
-     * @param strSource
-     *            the source
-     * @return source
-     */
-    public static String getProperName( String strSource )
-    {
-        int nIndex = 0;
-        boolean bUpper = true;
-        StringBuffer strBuffer = new StringBuffer( );
-
-        while ( nIndex < strSource.length( ) )
-        {
-            char c = strSource.charAt( nIndex );
-
-            if ( c == '_' )
-            {
-                // skip by reading the next char
-                nIndex++;
-                bUpper = true;
-            }
-
-            if ( bUpper )
-            {
-                String strChar = strSource.substring( nIndex, nIndex + 1 );
-                c = strChar.toUpperCase( ).charAt( 0 );
-                bUpper = false;
-            }
-
-            strBuffer.append( c );
-            nIndex++;
-        }
-
-        return strBuffer.toString( );
-    }
 }

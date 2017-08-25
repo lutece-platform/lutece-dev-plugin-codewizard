@@ -11,25 +11,25 @@
                         <div class="form-group">
                             <label class="control-label col-md-3" for="package">#i18n{codewizard.code_wizard.package} :</label>
                             <div class="col-md-8">
-                                <input type="text" name="package" value="fr.paris.lutece.plugins." class="form-control">
+                                <input type="text" name="package" value="fr.paris.lutece.plugins.myplugin.business" class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-3" for="class">#i18n{codewizard.code_wizard.business_class} :</label>
                             <div class="col-md-8">
-                                <input type="text" name="class" value="Object" class="form-control">
+                                <input type="text" name="class" value="MyObject" class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-3"  for="table">#i18n{codewizard.code_wizard.table} :</label>
                             <div class="col-md-8">
-                                <input type="text" name="table" value="object" class="form-control">
+                                <input type="text" name="table" value="myplugin_myobject" class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label  col-md-3" for="plugin">#i18n{codewizard.code_wizard.plugin} :</label>
                             <div class="col-md-8">
-                                <input type="text" name="plugin" value="object" class="form-control">
+                                <input type="text" name="plugin" value="myplugin" class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
@@ -39,6 +39,10 @@
 id_object int
 name String
 description String
+enable boolean
+attributes List
+parameters Map
+date_created Date
                                 </textarea>
                             </div>
                         </div>
