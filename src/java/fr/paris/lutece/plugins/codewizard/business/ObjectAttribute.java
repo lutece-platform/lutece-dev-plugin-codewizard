@@ -38,11 +38,13 @@ package fr.paris.lutece.plugins.codewizard.business;
  */
 public class ObjectAttribute
 {
+    private static final String DEFAULT_INPUT_TYPE = "text";
 
     private String _strColumnName;
     private String _strJavaType;
     private String _strName;
     private String _strVariableName;
+    private String _strInputType = DEFAULT_INPUT_TYPE;
     private boolean _bDaoType;
     private String _strTestInitValue1;
     private String _strTestInitValue2;
@@ -145,6 +147,26 @@ public class ObjectAttribute
     public String getType()
     {
         return _strJavaType;
+    }
+
+    /**
+     * Sets the InputType
+     *
+     * @param strInputType The InputType
+     */
+    public void setInputType( String strInputType )
+    {
+        _strInputType = strInputType;
+    }
+
+    /**
+     * Returns the InputType
+     *
+     * @return The InputType
+     */
+    public String getInputType()
+    {
+        return _strInputType;
     }
 
     /**

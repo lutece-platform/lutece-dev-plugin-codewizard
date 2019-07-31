@@ -39,15 +39,20 @@
 id_object int
 name String
 description String
-enable boolean
+enable boolean checkbox
+status int checkbox
 ratio double
-elapsed_time long
+password String password
+elapsed_time long number
+id_foreign int select
+email String email
+text String textarea
 attributes List
 parameters Map
 date_created Date
 date_updated Timestamp
                                 </textarea>
-                                <p class="help-block">Les attributs de type List et Map sont ignor&eacute;s dans les DAO</p>
+                                <p class="help-block">#i18n{codewizard.code_wizard.attributes.help}</p>
                             </div>
                         </div>
                         <div class="form-group">

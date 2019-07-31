@@ -184,14 +184,18 @@ public class CodeWizardApp implements XPageApplication
             String strLine = stLines.nextToken( );
             strLine = strLine.trim( );
 
-            StringTokenizer stElements = new StringTokenizer( strLine, " " );
+            String[] tokens = strLine.split( "\\s+" );
 
-            if ( stElements.countTokens( ) == 2 )
+            if ( tokens.length >= 2 )
             {
-                String strColumnName = stElements.nextToken( );
-                String strJavaType = stElements.nextToken( );
+                String strColumnName = tokens[0];
+                String strJavaType = tokens[1];
                 ObjectAttribute attribute = JavaTypeService.getAttribute( strColumnName, strJavaType );
                 bo.addAttribute( attribute );
+                if( tokens.length >= 3 )
+                {
+                    attribute.setInputType( tokens[2] );
+                }
 
                 if ( bFirst )
                 {

@@ -1,0 +1,43 @@
+<#macro form action>
+<&commat;row>
+    <&commat;columns>
+        <&commat;box>
+            <&commat;boxHeader title='#i18n&lbrace;${businessObject.pluginName}.${action}_${businessObject.instanceName?lower_case}.title}' />
+            <&commat;boxBody>
+                <&commat;tform name='${action}_${businessObject.instanceName?lower_case}' action='jsp/admin/plugins/${businessObject.pluginName}/Manage${businessObject.className}s.jsp'>
+                    <&commat;messages errors=errors />
+                        <#if action='modify'>
+                        &lt;input type="hidden" id="id" name="id" value="$&lbrace;${businessObject.instanceName}.id&rbrace;"/&gt;
+                        </#if>
+                        <#list businessObject.attributes as attribute>
+                        <#switch attribute.inputType>
+
+                            <#-- ----------- select ------------->
+                            <#case 'select'>
+                            <&commat;formGroup labelKey='#i18n&lbrace;${businessObject.pluginName}.${action}_${businessObject.instanceName?lower_case}.label${attribute.name}&rbrace;' helpKey='#i18n&lbrace;${businessObject.pluginName}.${action}_${businessObject.instanceName?lower_case}.label${attribute.name}.help&rbrace;' mandatory=true>
+                                <&commat;select name='${attribute.columnName}' items='${attribute.columnName}s_list' default_value='$&lbrace;${businessObject.instanceName}.${attribute.name?uncap_first}&rbrace;' />
+                            <&sol;&commat;formGroup>
+                            <#break>
+
+                            <#-- ----------- checkbox ------------->
+                            <#case 'checkbox'>
+                            <&commat;formGroup>
+                                <&commat;checkBox labelKey='#i18n&lbrace;${businessObject.pluginName}.${action}_${businessObject.instanceName?lower_case}.label${attribute.name}&rbrace;' name='${attribute.columnName}' value='1' />
+                            <&sol;&commat;formGroup>
+                            <#break>
+
+                            <#-- ----------- other imputs : text, number, email, password, textarea ------------->
+                            <#default>
+                            <&commat;formGroup labelKey='#i18n&lbrace;${businessObject.pluginName}.${action}_${businessObject.instanceName?lower_case}.label${attribute.name}&rbrace;' helpKey='#i18n&lbrace;${businessObject.pluginName}.${action}_${businessObject.instanceName?lower_case}.label${attribute.name}.help&rbrace;' mandatory=true>
+                                <&commat;input type='${attribute.inputType}' name='${attribute.columnName}' value='$&lbrace;${businessObject.instanceName}.${attribute.name?uncap_first}!\'\'&rbrace;' />
+                            <&sol;&commat;formGroup>
+                         </#switch>   
+
+                        </#list>
+                        <&commat;actionButtons button1Name="action_${action}${businessObject.className}" button2Name="view_manage${businessObject.className}"/>
+                <&sol;&commat;tform>
+            <&sol;&commat;boxBody>
+        <&sol;&commat;box>
+    <&sol;&commat;columns>
+<&sol;&commat;row>
+</#macro>
