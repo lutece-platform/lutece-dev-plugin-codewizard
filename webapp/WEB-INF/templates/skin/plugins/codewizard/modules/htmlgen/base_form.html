@@ -21,8 +21,8 @@
 
                             <#-- ----------- checkbox ------------->
                             <#case 'checkbox'>
-                            <&commat;formGroup>
-                                <&commat;checkBox labelKey='#i18n&lbrace;${businessObject.pluginName}.${action}_${businessObject.instanceName?lower_case}.label${attribute.name}&rbrace;' name='${attribute.columnName}' value='1' />
+                            <&commat;formGroup labelKey='#i18n&lbrace;${businessObject.pluginName}.${action}_${businessObject.instanceName?lower_case}.label${attribute.name}&rbrace;'>
+                                <&commat;checkBox labelKey='#i18n&lbrace;${businessObject.pluginName}.${action}_${businessObject.instanceName?lower_case}.label${attribute.name}.help&rbrace;' name='${attribute.columnName}' value='1' />
                             <&sol;&commat;formGroup>
                             <#break>
 

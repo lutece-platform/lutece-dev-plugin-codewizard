@@ -1,34 +1,38 @@
-<&commat;box>
-	<&commat;boxHeader title='#i18n&lbrace;${businessObject.pluginName}.manage_${businessObject.instanceName?lower_case}s.title&rbrace;' boxTools=true>
-		<&commat;tform class='form-inline pull-right' name='manage_${businessObject.instanceName?lower_case}' action='jsp/admin/plugins/${businessObject.pluginName}/Manage${businessObject.className}s.jsp'>
-			<&commat;button type='submit' name='view_create${businessObject.className}' buttonIcon='plus' title='#i18n&lbrace;${businessObject.pluginName}.manage_${businessObject.instanceName?lower_case}s.buttonAdd&rbrace;' />
-		<&sol;&commat;tform>
-	<&sol;&commat;boxHeader>
-	<&commat;boxBody>    
-            <&commat;messages infos=infos />
-            <&commat;paginationAdmin paginator=paginator combo=1 />
-            &lt;div class="clearfix"&gt;&lt;/div&gt;
-            <&commat;table>
-                &lt;tr>
-                <#list businessObject.attributes as attribute>
-                    &lt;th>#i18n&lbrace;${businessObject.pluginName}.manage_${businessObject.instanceName?lower_case}s.column${attribute.name}&rbrace;&lt;/th&gt;
-                </#list>
-                &lt;th>#i18n&lbrace;portal.util.labelActions&rbrace;&lt;/th&gt;
-                &lt;/tr>
-                <&commat;tableHeadBodySeparator />
-                <&num;list ${businessObject.instanceName}_list as ${businessObject.instanceName} >
-                &lt;tr&gt;
-                <#list businessObject.attributes as attribute>
-                    &lt;td>$&lbrace;${businessObject.instanceName}.${attribute.name?uncap_first}&rbrace;&lt;/td&gt;
-                </#list>
-                    &lt;td&gt;
-                        <&commat;aButton href='jsp/admin/plugins/${businessObject.pluginName}/Manage${businessObject.className}s.jsp?view=modify${businessObject.className}&id=$&lbrace;${businessObject.instanceName}.id&rbrace;' title='#i18n&lbrace;portal.util.labelModify&rbrace;' buttonIcon='pencil' showTitle=false />
-                        <&commat;aButton href='jsp/admin/plugins/${businessObject.pluginName}/Manage${businessObject.className}s.jsp?action=confirmRemove${businessObject.className}&id=$&lbrace;${businessObject.instanceName}.id&rbrace;' title='#i18n&lbrace;portal.util.labelDelete&rbrace;' buttonIcon='trash' color='btn-danger' showTitle=false />
-                    &lt;/td&gt;
-                &lt;/tr&gt;
-                <&sol;&num;list>
-            <&sol;&commat;table>
+<&commat;row>
+    <&commat;columns>
+        <&commat;box>
+            <&commat;boxHeader title='#i18n&lbrace;${businessObject.pluginName}.manage_${businessObject.instanceName?lower_case}s.title&rbrace;' boxTools=true>
+                <&commat;tform class='form-inline pull-right' name='manage_${businessObject.instanceName?lower_case}' action='jsp/admin/plugins/${businessObject.pluginName}/Manage${businessObject.className}s.jsp'>
+                    <&commat;button type='submit' name='view_create${businessObject.className}' buttonIcon='plus' title='#i18n&lbrace;${businessObject.pluginName}.manage_${businessObject.instanceName?lower_case}s.buttonAdd&rbrace;' />
+                <&sol;&commat;tform>
+            <&sol;&commat;boxHeader>
+            <&commat;boxBody>    
+                    <&commat;messages infos=infos />
+                    <&commat;paginationAdmin paginator=paginator combo=1 />
+                    &lt;div class="clearfix"&gt;&lt;/div&gt;
+                    <&commat;table>
+                        &lt;tr>
+                        <#list businessObject.attributes as attribute>
+                            &lt;th>#i18n&lbrace;${businessObject.pluginName}.manage_${businessObject.instanceName?lower_case}s.column${attribute.name}&rbrace;&lt;/th&gt;
+                        </#list>
+                        &lt;th>#i18n&lbrace;portal.util.labelActions&rbrace;&lt;/th&gt;
+                        &lt;/tr>
+                        <&commat;tableHeadBodySeparator />
+                        <&num;list ${businessObject.instanceName}_list as ${businessObject.instanceName} >
+                        &lt;tr&gt;
+                        <#list businessObject.attributes as attribute>
+                            &lt;td>$&lbrace;${businessObject.instanceName}.${attribute.name?uncap_first}&rbrace;&lt;/td&gt;
+                        </#list>
+                            &lt;td&gt;
+                                <&commat;aButton href='jsp/admin/plugins/${businessObject.pluginName}/Manage${businessObject.className}s.jsp?view=modify${businessObject.className}&id=$&lbrace;${businessObject.instanceName}.id&rbrace;' title='#i18n&lbrace;portal.util.labelModify&rbrace;' buttonIcon='pencil' showTitle=false />
+                                <&commat;aButton href='jsp/admin/plugins/${businessObject.pluginName}/Manage${businessObject.className}s.jsp?action=confirmRemove${businessObject.className}&id=$&lbrace;${businessObject.instanceName}.id&rbrace;' title='#i18n&lbrace;portal.util.labelDelete&rbrace;' buttonIcon='trash' color='btn-danger' showTitle=false />
+                            &lt;/td&gt;
+                        &lt;/tr&gt;
+                        <&sol;&num;list>
+                    <&sol;&commat;table>
 
-            <&commat;paginationAdmin paginator=paginator />
-    <&sol;&commat;boxBody>
-<&sol;&commat;box>
+                    <&commat;paginationAdmin paginator=paginator />
+            <&sol;&commat;boxBody>
+        <&sol;&commat;box>
+    <&sol;&commat;columns>
+<&sol;&commat;row>
