@@ -15,7 +15,7 @@
                             <#-- ----------- select ------------->
                             <#case 'select'>
                             <&commat;formGroup labelKey='#i18n&lbrace;${businessObject.pluginName}.${action}_${businessObject.instanceName?lower_case}.label${attribute.name}&rbrace;' helpKey='#i18n&lbrace;${businessObject.pluginName}.${action}_${businessObject.instanceName?lower_case}.label${attribute.name}.help&rbrace;' mandatory=true>
-                                <&commat;select name='${attribute.columnName}' items='${attribute.columnName}s_list' default_value='$&lbrace;${businessObject.instanceName}.${attribute.name?uncap_first}&rbrace;' />
+                                <&commat;select name='${attribute.columnName}' items=${attribute.columnName}s_list default_value='$&lbrace;${businessObject.instanceName}.${attribute.name?uncap_first}&rbrace;' />
                             <&sol;&commat;formGroup>
                             <#break>
 
