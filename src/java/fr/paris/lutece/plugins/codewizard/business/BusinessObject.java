@@ -48,7 +48,7 @@ public class BusinessObject
     private String _strTable;
     private String _strIdColumnName;
     private String _strPluginName;
-    private List<ObjectAttribute> _attributes = new ArrayList<ObjectAttribute>( );
+    private List<ObjectAttribute> _attributes = new ArrayList<>( );
 
     /**
      * Sets the PackageName

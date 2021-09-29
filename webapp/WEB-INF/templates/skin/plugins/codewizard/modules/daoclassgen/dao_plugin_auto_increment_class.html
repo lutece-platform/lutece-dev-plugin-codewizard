@@ -54,107 +54,109 @@ public final class ${businessObject.className}DAO implements I${businessObject.c
 	private static final String SQL_QUERY_SELECTALL = "SELECT <#list businessObject.daoAttributes as attribute>${attribute.columnName}<#if attribute_has_next>, </#if></#list> FROM ${businessObject.table}";
 
         
-        /**
-         * {@inheritDoc }
-         */
-        @Override
+   /**
+    * {@inheritDoc }
+    */
+    @Override
 	public void insert( ${businessObject.className} ${businessObject.instanceName}, Plugin plugin )
 	{
-		DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT , Statement.RETURN_GENERATED_KEYS, plugin );
-                
-                int nIndex = 0;
+		try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT , Statement.RETURN_GENERATED_KEYS, plugin ) )
+        {
+            int nIndex = 0;
             <#list businessObject.daoAttributes as attribute>
-                daoUtil.set${attribute.type?cap_first} ( ++nIndex, ${businessObject.instanceName}.get${attribute.name} ( ) );
+            daoUtil.set${attribute.type?cap_first} ( ++nIndex, ${businessObject.instanceName}.get${attribute.name} ( ) );
             </#list>
 
-                daoUtil.executeUpdate();
-                if ( daoUtil.nextGeneratedKey() ) 
-                {
-                    ${businessObject.instanceName}.setId${businessObject.className}( daoUtil.getGeneratedKeyInt( 1 ) );
-                }
-                daoUtil.free( );  
+            daoUtil.executeUpdate();
+            if ( daoUtil.nextGeneratedKey() ) 
+            {
+                ${businessObject.instanceName}.setId${businessObject.className}( daoUtil.getGeneratedKeyInt( 1 ) );
+            } 
         }
-
+    }
         
-        /**
-         * {@inheritDoc }
-         */
-        @Override
-        public ${businessObject.className} load( int nId, Plugin plugin )
+   /**
+    * {@inheritDoc }
+    */
+    @Override
+    public ${businessObject.className} load( int nId, Plugin plugin )
 	{
-		DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT , plugin );
-		daoUtil.setInt( 1 , nId );
-		daoUtil.executeQuery();
-
-		${businessObject.className} ${businessObject.instanceName} = null;
-
-		if ( daoUtil.next() )
+		try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT , plugin ) )
 		{
-			${businessObject.instanceName} = new ${businessObject.className}();
-
-                    <#list businessObject.daoAttributes as attribute>
-                        ${businessObject.instanceName}.set${attribute.name}( daoUtil.get${attribute.type?cap_first}( "${attribute.columnName}" ) );
-                    </#list>
+			daoUtil.setInt( 1 , nId );
+			daoUtil.executeQuery();
+	
+			${businessObject.className} ${businessObject.instanceName} = null;
+	
+			if ( daoUtil.next() )
+			{
+				${businessObject.instanceName} = new ${businessObject.className}();
+	
+	            <#list businessObject.daoAttributes as attribute>
+	            ${businessObject.instanceName}.set${attribute.name}( daoUtil.get${attribute.type?cap_first}( "${attribute.columnName}" ) );
+	            </#list>
+			}
+	
+			return ${businessObject.instanceName};
 		}
-
-		daoUtil.free();
-		return ${businessObject.instanceName};
 	}
 
         
-        /**
-         * {@inheritDoc }
-         */
-        @Override
+   /**
+    * {@inheritDoc }
+    */
+    @Override
 	public void delete( int n${businessObject.className}Id, Plugin plugin )
 	{
-		DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE , plugin );
-		daoUtil.setInt( 1 , n${businessObject.className}Id );
-		daoUtil.executeUpdate();
-		daoUtil.free();
+		try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE , plugin ) )
+		{
+			daoUtil.setInt( 1 , n${businessObject.className}Id );
+			daoUtil.executeUpdate();
+		}
 	}
 
         
-        /**
-         * {@inheritDoc }
-         */
-        @Override
+   /**
+    * {@inheritDoc }
+    */
+    @Override
 	public void store( ${businessObject.className} ${businessObject.instanceName}, Plugin plugin )
 	{
-		DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE , plugin );
-                
-                int nIndex = 0;
-                <#list businessObject.daoAttributes as attribute>
-                daoUtil.set${attribute.type?cap_first}( ++nIndex, ${businessObject.instanceName}.get${attribute.name}( ) );
-                </#list>
-                daoUtil.setInt( ++nIndex, ${businessObject.instanceName}.getId${businessObject.className}( ) );
-                
-		daoUtil.executeUpdate( );
-		daoUtil.free( );
+		try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE , plugin ) )
+		{       
+            int nIndex = 0;
+            <#list businessObject.daoAttributes as attribute>
+            daoUtil.set${attribute.type?cap_first}( ++nIndex, ${businessObject.instanceName}.get${attribute.name}( ) );
+            </#list>
+            daoUtil.setInt( ++nIndex, ${businessObject.instanceName}.getId${businessObject.className}( ) );
+            
+		    daoUtil.executeUpdate( );
+		}
 	}
 
         
-        /**
-         * {@inheritDoc }
-         */
-        @Override
-        public List&lt;${businessObject.className}&gt; select${businessObject.className}sList( Plugin plugin )
+   /**
+    * {@inheritDoc }
+    */
+    @Override
+    public List&lt;${businessObject.className}&gt; select${businessObject.className}sList( Plugin plugin )
 	{
 		List&lt;${businessObject.className}&gt; list${businessObject.className}s = new ArrayList&lt;&gt;(  );
-		DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL , plugin );
-		daoUtil.executeQuery(  );
-
-		while ( daoUtil.next(  ) )
+		try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL , plugin ) )
 		{
-                    ${businessObject.className} ${businessObject.instanceName} = new ${businessObject.className}(  );
-                <#list businessObject.daoAttributes as attribute>
-                    ${businessObject.instanceName}.set${attribute.name}( daoUtil.get${attribute.type?cap_first}( "${attribute.columnName}" ) );
-                </#list>
-                    list${businessObject.className}s.add( ${businessObject.instanceName} );
+			daoUtil.executeQuery(  );
+	
+			while ( daoUtil.next(  ) )
+			{
+	            ${businessObject.className} ${businessObject.instanceName} = new ${businessObject.className}(  );
+	            <#list businessObject.daoAttributes as attribute>
+	            ${businessObject.instanceName}.set${attribute.name}( daoUtil.get${attribute.type?cap_first}( "${attribute.columnName}" ) );
+	            </#list>
+	            list${businessObject.className}s.add( ${businessObject.instanceName} );
+			}
+	
+			return list${businessObject.className}s;
 		}
-
-		daoUtil.free();
-		return list${businessObject.className}s;
 	}
 
 }
