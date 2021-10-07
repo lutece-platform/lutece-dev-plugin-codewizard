@@ -55,6 +55,10 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class CodeWizardApp implements XPageApplication
 {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 2220490166227831286L;
     // Constants
     private static final String TEMPLATE_CODE_WIZARD = "/skin/plugins/codewizard/code_wizard.html";
     private static final String TEMPLATE_SOURCE_CODE = "/skin/plugins/codewizard/code_source.html";

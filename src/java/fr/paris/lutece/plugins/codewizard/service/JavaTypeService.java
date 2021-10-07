@@ -52,9 +52,9 @@ public class JavaTypeService
     {
         // constructor parameters : Java type | prefix | use in DAO | required import | test value format
         _mapJavaType.put( "int", new JavaType( "int", "n", true , null , "{0}" ) );
-        _mapJavaType.put( "float", new JavaType( "float", "f", true  , null , "{0}.0") );
+        _mapJavaType.put( "float", new JavaType( "float", "f", true  , null , "{0}.0" ) );
         _mapJavaType.put( "long", new JavaType( "long", "l", true , null , "{0}L" ) );
-        _mapJavaType.put( "double", new JavaType( "double", "d", true  , null , "{0}.0") );
+        _mapJavaType.put( "double", new JavaType( "double", "d", true  , null , "{0}.0" ) );
         _mapJavaType.put( "boolean", new JavaType( "boolean", "b", true , null , "true" ) );
         _mapJavaType.put( "string", new JavaType( "String", "str", true , null , "\"{1}{0}\"" ) );
         _mapJavaType.put( "date", new JavaType( "Date", "date", true , "java.sql.Date" , "new Date( {0}L )" ) );

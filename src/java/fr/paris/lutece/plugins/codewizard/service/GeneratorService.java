@@ -68,7 +68,7 @@ public final class GeneratorService
     public static String generate( BusinessObject bo, int nIndex )
     {
         String strTemplate = getTemplate( nIndex );
-        HashMap model = new HashMap( );
+        HashMap<String, BusinessObject> model = new HashMap<>( );
         model.put( MARK_OBJECT_BO, bo );
 
         HtmlTemplate template = AppTemplateService.getTemplate( strTemplate, LocaleService.getDefault( ), model );
