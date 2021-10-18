@@ -14,22 +14,38 @@
 
                             <#-- ----------- select ------------->
                             <#case 'select'>
-                            <&commat;formGroup labelKey='#i18n&lbrace;${businessObject.pluginName}.${action}_${businessObject.instanceName?lower_case}.label${attribute.name}&rbrace;' helpKey='#i18n&lbrace;${businessObject.pluginName}.${action}_${businessObject.instanceName?lower_case}.label${attribute.name}.help&rbrace;' mandatory=true>
-                                <&commat;select name='${attribute.columnName}' items=${attribute.columnName}s_list default_value='$&lbrace;${businessObject.instanceName}.${attribute.name?uncap_first}&rbrace;' />
-                            <&sol;&commat;formGroup>
+                            <&commat;cFormRow class='mt-3'>
+	                            <&commat;cCol params='aria-describedby="cSelect"'>
+		                            <&commat;@cField label='#i18n&lbrace;${businessObject.pluginName}.${action}_${businessObject.instanceName?lower_case}.label${attribute.name}&rbrace;' mandatory=true>
+		                                <&commat;cSelect name='${attribute.columnName}'>
+		                                <#assign default_value='$&lbrace;${businessObject.instanceName}.${attribute.name?uncap_first}&rbrace;' />
+		                                <#list ${attribute.columnName}s_list as opt_value>
+		                                <#if opt_value == default_value>
+		                                <&commat;cOption label=opt_value value=opt_value selected=true />
+		                                <#else>
+		                                <&commat;cOption label=opt_value value=opt_value />
+		                                </#if>
+		                                </#list>
+		                                <&sol;&commat;cSelect>
+		                                <@cFormHelp id='cSelect' label='#i18n&lbrace;${businessObject.pluginName}.${action}_${businessObject.instanceName?lower_case}.label${attribute.name}.help&rbrace;' />
+		                            <&sol;&commat;@cField>
+	                            <&sol;&commat;cCol>
+                            <&sol;&commat;cFormRow>
                             <#break>
 
                             <#-- ----------- checkbox ------------->
                             <#case 'checkbox'>
-                            <&commat;formGroup labelKey='#i18n&lbrace;${businessObject.pluginName}.${action}_${businessObject.instanceName?lower_case}.label${attribute.name}&rbrace;'>
-                                <&commat;checkBox labelKey='#i18n&lbrace;${businessObject.pluginName}.${action}_${businessObject.instanceName?lower_case}.label${attribute.name}.help&rbrace;' name='${attribute.columnName}' value='1' />
+                            <&commat;formGroup class='mb-5'>
+                                <&commat;cLabel label='#i18n&lbrace;${businessObject.pluginName}.${action}_${businessObject.instanceName?lower_case}.label${attribute.name}.help&rbrace;' for='${attribute.columnName}' />
+                                <&commat;cCheckbox  name='${attribute.columnName}' value='1' />
                             <&sol;&commat;formGroup>
                             <#break>
 
                             <#-- ----------- other imputs : text, number, email, password, textarea ------------->
                             <#default>
-                            <&commat;formGroup labelKey='#i18n&lbrace;${businessObject.pluginName}.${action}_${businessObject.instanceName?lower_case}.label${attribute.name}&rbrace;' helpKey='#i18n&lbrace;${businessObject.pluginName}.${action}_${businessObject.instanceName?lower_case}.label${attribute.name}.help&rbrace;' mandatory=true>
-                                <&commat;input type='${attribute.inputType}' name='${attribute.columnName}' value='$&lbrace;${businessObject.instanceName}.${attribute.name?uncap_first}!\'\'&rbrace;' />
+                            <&commat;formGroup class='mb-5' mandatory=true>
+                                <&commat;cLabel label='#i18n&lbrace;${businessObject.pluginName}.${action}_${businessObject.instanceName?lower_case}.label${attribute.name}&rbrace;' for='${attribute.columnName}' />
+                                <&commat;cInput name='${attribute.columnName}' type='${attribute.inputType}' value='$&lbrace;${businessObject.instanceName}.${attribute.name?uncap_first}!\'\'&rbrace;' helpMsg='#i18n&lbrace;${businessObject.pluginName}.${action}_${businessObject.instanceName?lower_case}.label${attribute.name}.help&rbrace;' />
                             <&sol;&commat;formGroup>
                          </#switch>   
 
